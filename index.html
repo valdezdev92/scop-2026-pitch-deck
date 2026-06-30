@@ -183,6 +183,13 @@
   @media (max-height:640px){ :root{ --t-hero:clamp(1.5rem,5vw,2.6rem); --t-kpi:clamp(2rem,5vw,3.5rem); --t-body:clamp(.78rem,1.1vw,.92rem);} #dots,.hint{ display:none; } }
   @media (max-width:560px){ .brand-fix span.long{ display:none; } }
   @media (prefers-reduced-motion:reduce){ *,*::before,*::after{ animation-duration:.01ms!important; transition-duration:.25s!important; } }
+
+  /* Logotipos con fade in */
+  .logos-container{ position:absolute; bottom:var(--pad); right:var(--pad); z-index:10; display:flex; align-items:flex-end; gap:clamp(1.5rem,3vw,3rem); opacity:0; animation:fadeIn 1.2s var(--ease) 0.6s forwards; }
+  .logos-container img{ max-height:clamp(60px,8vh,120px); width:auto; object-fit:contain; filter:brightness(1); }
+  .logos-container .logo-scop{ max-height:clamp(50px,7vh,100px); }
+  .logos-container .logo-gov{ max-height:clamp(70px,9vh,130px); }
+  @keyframes fadeIn{ from{ opacity:0; } to{ opacity:1; } }
   </style>
 </head>
 <body>
@@ -206,6 +213,10 @@
           <div class="m"><span class="k">Cargo</span><span class="v">Secretario de Comunicaciones y Obras Públicas</span></div>
           <div class="m"><span class="k">Año</span><span class="v">2026</span></div>
         </div>
+      </div>
+      <div class="logos-container">
+        <img src="assets/SCOP Blanco.png" alt="Logo SCOP" class="logo-scop">
+        <img src="assets/Institucional Blanco vertical.png" alt="Gobierno del Estado de Chihuahua" class="logo-gov">
       </div>
     </section>
 
@@ -713,6 +724,10 @@
           <div class="c"><div class="k">Ponente</div><div class="v">M.I. Jorge Chanez · Secretario SCOP</div></div>
           <div class="c"><div class="k">Gobierno</div><div class="v">Estado de Chihuahua · 2026</div></div>
         </div>
+      </div>
+      <div class="logos-container">
+        <img src="assets/SCOP Blanco.png" alt="Logo SCOP" class="logo-scop">
+        <img src="assets/Institucional Blanco vertical.png" alt="Gobierno del Estado de Chihuahua" class="logo-gov">
       </div>
     </section>
 
