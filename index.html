@@ -1,0 +1,807 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Proyectos SCOP 2026 — Pasos a Desnivel y Obra Pública · Gobierno del Estado de Chihuahua</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+  /* ============================================================
+     SISTEMA DE DISEÑO — "Proyectos SCOP 2026"
+     Dark-mode premium (Linear / Stripe) + identidad técnica.
+     Acento cian/teal eléctrico.
+     ============================================================ */
+  :root {
+    --bg:#080b11; --bg-2:#0d121b; --bg-3:#131a26;
+    --line:rgba(255,255,255,0.08); --line-2:rgba(255,255,255,0.04);
+    --ink:#f3f6fb; --ink-soft:#aab4c5; --ink-dim:#6b7689;
+    --teal:#19e3c4; --teal-2:#38f0d4; --teal-deep:#0fb8a0;
+    --teal-glow:rgba(25,227,196,0.25); --teal-dim:rgba(25,227,196,0.10); --teal-line:rgba(25,227,196,0.30);
+    --blue:#7aa7ff;
+    --f-disp:'Sora',sans-serif; --f-mono:'JetBrains Mono',monospace;
+    --t-hero:clamp(2.2rem,6.5vw,5.5rem); --t-h2:clamp(1.5rem,4vw,3.2rem);
+    --t-obra:clamp(1.3rem,2.9vw,2.4rem);
+    --t-h3:clamp(1.05rem,2vw,1.5rem); --t-lead:clamp(1rem,1.7vw,1.35rem);
+    --t-body:clamp(0.85rem,1.25vw,1.02rem); --t-small:clamp(0.62rem,0.92vw,0.78rem);
+    --t-mono:clamp(0.6rem,0.85vw,0.74rem); --t-kpi:clamp(2.6rem,7vw,6rem);
+    --pad:clamp(2rem,6vw,7rem); --gap:clamp(1rem,2.4vw,2.4rem); --gap-s:clamp(0.5rem,1.1vw,1.1rem);
+    --ease:cubic-bezier(0.22,1,0.36,1); --ease-2:cubic-bezier(0.32,0.72,0,1); --dur:0.85s;
+  }
+  *,*::before,*::after{ margin:0; padding:0; box-sizing:border-box; }
+  html,body{ height:100%; overflow:hidden; }
+  body{ font-family:var(--f-disp); background:var(--bg); color:var(--ink); -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility; }
+  button{ font-family:inherit; border:none; background:none; cursor:pointer; color:inherit; }
+  img{ display:block; max-width:100%; }
+
+  #deck{ display:flex; height:100vh; height:100dvh; transition:transform var(--dur) var(--ease-2); will-change:transform; }
+  .slide{ position:relative; flex:0 0 100vw; width:100vw; height:100vh; height:100dvh; overflow:hidden; display:flex; flex-direction:column; justify-content:center; padding:var(--pad); }
+  .slide::before{ content:''; position:absolute; inset:0; z-index:0; pointer-events:none;
+    background-image:linear-gradient(rgba(255,255,255,0.018) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.018) 1px,transparent 1px);
+    background-size:clamp(40px,5vw,72px) clamp(40px,5vw,72px); mask-image:radial-gradient(ellipse 90% 90% at 50% 50%,#000 40%,transparent 100%); }
+  .orb{ position:absolute; border-radius:50%; pointer-events:none; z-index:0; background:radial-gradient(circle,var(--teal-glow) 0%,transparent 70%); filter:blur(40px); opacity:0; transition:opacity 1.2s var(--ease); }
+  .slide.active .orb{ opacity:1; }
+  .wrap{ position:relative; z-index:2; width:100%; max-width:1280px; margin:0 auto; max-height:100%; display:flex; flex-direction:column; justify-content:center; }
+
+  .eyebrow{ display:inline-flex; align-items:center; gap:.6rem; font-family:var(--f-mono); font-size:var(--t-mono); font-weight:500; text-transform:uppercase; letter-spacing:0.28em; color:var(--teal); margin-bottom:var(--gap); }
+  .eyebrow::before{ content:''; width:clamp(20px,3vw,40px); height:1px; background:var(--teal); }
+
+  h1.hero{ font-size:var(--t-hero); font-weight:700; line-height:1.02; letter-spacing:-0.02em; }
+  h2{ font-size:var(--t-h2); font-weight:700; line-height:1.08; letter-spacing:-0.015em; }
+  h3{ font-size:var(--t-h3); font-weight:600; line-height:1.2; }
+  .lead{ font-size:var(--t-lead); color:var(--ink-soft); line-height:1.55; font-weight:300; max-width:62ch; }
+  .grad{ color:transparent; background:linear-gradient(120deg,var(--teal-2),var(--teal-deep)); -webkit-background-clip:text; background-clip:text; }
+  .quote{ font-size:var(--t-lead); color:var(--ink); line-height:1.5; font-weight:400; font-style:italic; border-left:2px solid var(--teal); padding-left:clamp(.8rem,1.5vw,1.4rem); max-width:60ch; }
+
+  /* Animaciones */
+  .rv{ opacity:0; transform:translateY(22px); transition:opacity .8s var(--ease),transform .8s var(--ease); }
+  .rv-s{ opacity:0; transform:scale(0.96); transition:opacity .9s var(--ease),transform .9s var(--ease); }
+  .slide.active .rv,.slide.active .rv-s{ opacity:1; transform:none; }
+  .slide.active .rv:nth-child(1),.slide.active .rv-s:nth-child(1){transition-delay:.12s}
+  .slide.active .rv:nth-child(2),.slide.active .rv-s:nth-child(2){transition-delay:.19s}
+  .slide.active .rv:nth-child(3),.slide.active .rv-s:nth-child(3){transition-delay:.26s}
+  .slide.active .rv:nth-child(4),.slide.active .rv-s:nth-child(4){transition-delay:.33s}
+  .slide.active .rv:nth-child(5),.slide.active .rv-s:nth-child(5){transition-delay:.40s}
+  .slide.active .rv:nth-child(6),.slide.active .rv-s:nth-child(6){transition-delay:.47s}
+  .slide:not(.active) .rv,.slide:not(.active) .rv-s{ transition-delay:0s !important; }
+  [data-stagger]>*{ opacity:0; transform:translateY(20px); transition:opacity .7s var(--ease),transform .7s var(--ease); }
+  .slide.active [data-stagger]>*{ opacity:1; transform:none; }
+  .slide.active [data-stagger]>*:nth-child(1){transition-delay:.30s}
+  .slide.active [data-stagger]>*:nth-child(2){transition-delay:.37s}
+  .slide.active [data-stagger]>*:nth-child(3){transition-delay:.44s}
+  .slide.active [data-stagger]>*:nth-child(4){transition-delay:.51s}
+  .slide.active [data-stagger]>*:nth-child(5){transition-delay:.58s}
+  .slide.active [data-stagger]>*:nth-child(6){transition-delay:.65s}
+
+  /* Portada / cierre con foto */
+  .cover{ padding:0; }
+  .cover .cover-bg{ position:absolute; inset:0; z-index:0; }
+  .cover .cover-bg img{ width:100%; height:100%; object-fit:cover; opacity:.32; }
+  .cover .cover-bg::after{ content:''; position:absolute; inset:0; background:linear-gradient(180deg,rgba(8,11,17,0.55) 0%,rgba(8,11,17,0.75) 55%,var(--bg) 100%),linear-gradient(90deg,var(--bg) 0%,rgba(8,11,17,0.2) 60%,transparent 100%); }
+  .cover .wrap{ padding:var(--pad); max-width:1320px; }
+  .cover-meta{ display:flex; flex-wrap:wrap; gap:clamp(1rem,3vw,3rem); margin-top:var(--gap); padding-top:var(--gap); border-top:1px solid var(--line); }
+  .cover-meta .m{ display:flex; flex-direction:column; gap:.25rem; }
+  .cover-meta .m .k{ font-family:var(--f-mono); font-size:var(--t-mono); text-transform:uppercase; letter-spacing:.18em; color:var(--ink-dim); }
+  .cover-meta .m .v{ font-size:var(--t-body); font-weight:600; color:var(--ink); }
+  .cover-meta .m .v.accent{ color:var(--teal); }
+
+  /* Layouts */
+  .split{ display:grid; grid-template-columns:1fr 1fr; gap:clamp(2rem,5vw,5rem); align-items:center; width:100%; }
+  .split.narrow-left{ grid-template-columns:0.85fr 1.15fr; }
+  @media (max-width:900px){ .split,.split.narrow-left{ grid-template-columns:1fr; gap:var(--gap); } }
+
+  .points{ list-style:none; display:flex; flex-direction:column; gap:var(--gap-s); margin-top:var(--gap); }
+  .points.tight{ gap:clamp(.35rem,.8vh,.7rem); margin-top:var(--gap-s); }
+  .points li{ display:flex; gap:.8rem; align-items:flex-start; font-size:var(--t-body); color:var(--ink-soft); line-height:1.45; }
+  .points li b{ color:var(--ink); font-weight:600; }
+  .points li::before{ content:''; flex:0 0 auto; width:7px; height:7px; margin-top:.5em; border-radius:2px; background:var(--teal); box-shadow:0 0 10px var(--teal-glow); }
+  .points.dim li::before{ background:var(--blue); box-shadow:none; }
+
+  /* Feature / ejes grid */
+  .feat-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:clamp(.8rem,1.6vw,1.4rem); margin-top:var(--gap); }
+  @media (max-width:900px){ .feat-grid{ grid-template-columns:repeat(2,1fr); } }
+  .feat{ position:relative; padding:1px; border-radius:18px; background:linear-gradient(150deg,var(--line),transparent 60%); transition:transform .5s var(--ease); }
+  .feat-in{ background:var(--bg-2); border-radius:17px; padding:clamp(1rem,2vw,1.5rem); height:100%; display:flex; flex-direction:column; gap:.5rem; box-shadow:inset 0 1px 0 rgba(255,255,255,0.04); }
+  @media (hover:hover){ .feat:hover{ transform:translateY(-4px); } }
+  .feat .ix{ font-family:var(--f-mono); font-size:var(--t-mono); color:var(--ink-dim); }
+  .feat h3{ font-size:clamp(.95rem,1.4vw,1.18rem); font-weight:600; }
+  .feat p{ font-size:var(--t-small); color:var(--ink-soft); line-height:1.5; }
+
+  /* Paneles */
+  .col-2{ display:grid; grid-template-columns:1fr 1fr; gap:clamp(1rem,2.2vw,1.8rem); margin-top:var(--gap); }
+  .col-3{ display:grid; grid-template-columns:repeat(3,1fr); gap:clamp(.8rem,1.6vw,1.4rem); margin-top:var(--gap); }
+  @media (max-width:900px){ .col-2,.col-3{ grid-template-columns:1fr; } }
+  .panel{ background:var(--bg-2); border:1px solid var(--line); border-radius:18px; padding:clamp(1.1rem,2.2vw,1.8rem); display:flex; flex-direction:column; gap:.7rem; box-shadow:inset 0 1px 0 rgba(255,255,255,0.04); }
+  .panel .ph{ display:flex; align-items:center; justify-content:space-between; gap:1rem; }
+  .panel h3{ font-size:clamp(1rem,1.6vw,1.3rem); font-weight:600; }
+  .panel .sub{ font-family:var(--f-mono); font-size:var(--t-mono); color:var(--teal); text-transform:uppercase; letter-spacing:.12em; }
+  .amt{ font-family:var(--f-mono); font-weight:600; color:var(--teal); font-size:clamp(1.05rem,2vw,1.5rem); letter-spacing:-.01em; }
+  .when-tag{ font-family:var(--f-mono); font-size:var(--t-mono); color:var(--ink-dim); letter-spacing:.06em; }
+
+  /* Pills */
+  .pill{ display:inline-flex; align-items:center; gap:.4rem; font-family:var(--f-mono); font-size:var(--t-mono); font-weight:500; text-transform:uppercase; letter-spacing:.1em; padding:.3em .7em; border-radius:999px; white-space:nowrap; }
+  .pill .d{ width:5px; height:5px; border-radius:50%; background:currentColor; }
+  .pill.lic{ color:var(--teal); border:1px solid var(--teal-line); background:var(--teal-dim); }
+  .pill.proc{ color:var(--blue); border:1px solid rgba(122,167,255,.3); background:rgba(122,167,255,.1); }
+  .pill.cart{ color:var(--ink-soft); border:1px solid var(--line); background:var(--bg-3); }
+  .pill.sup{ color:var(--teal); border:1px solid var(--teal-line); background:var(--teal-dim); }
+  .pill.inf{ color:var(--blue); border:1px solid rgba(122,167,255,.3); background:rgba(122,167,255,.1); }
+
+  /* ===== SLIDE DE OBRA (paso individual) ===== */
+  .obra{ display:grid; grid-template-columns:1.08fr 1fr; gap:clamp(1.5rem,4vw,4rem); align-items:center; width:100%; }
+  .obra.flip .shot{ order:2; }
+  @media (max-width:900px){ .obra{ grid-template-columns:1fr; gap:var(--gap); } .obra.flip .shot{ order:0; } }
+  .shot{ display:flex; flex-direction:column; gap:5px; height:min(60vh,520px); border-radius:16px; overflow:hidden; border:1px solid var(--line); }
+  .shot .main{ flex:2.6; overflow:hidden; }
+  .shot .tec{ flex:1; overflow:hidden; border-top:1px solid var(--line); }
+  .shot.single .main{ flex:1; }
+  .shot img{ width:100%; height:100%; object-fit:cover; transition:transform .8s var(--ease); }
+  @media (hover:hover){ .obra:hover .shot .main img{ transform:scale(1.05); } }
+  .row-pills{ display:flex; gap:.5rem; flex-wrap:wrap; margin-bottom:var(--gap-s); }
+  .obra-title{ font-size:var(--t-obra); font-weight:700; line-height:1.06; letter-spacing:-0.015em; }
+  .obra-loc{ font-family:var(--f-mono); font-size:var(--t-mono); color:var(--ink-dim); letter-spacing:.08em; margin-top:.5rem; }
+  .kv{ list-style:none; display:flex; flex-direction:column; gap:clamp(.28rem,.7vh,.55rem); margin-top:var(--gap); }
+  .kv li{ display:flex; justify-content:space-between; align-items:baseline; gap:1rem; border-bottom:1px solid var(--line-2); padding-bottom:clamp(.28rem,.65vh,.5rem); }
+  .kv .k{ font-family:var(--f-mono); font-size:var(--t-mono); text-transform:uppercase; letter-spacing:.1em; color:var(--ink-dim); white-space:nowrap; }
+  .kv .v{ font-size:clamp(.76rem,1.1vw,.98rem); color:var(--ink); font-weight:600; text-align:right; }
+  .impact{ margin-top:var(--gap); display:flex; align-items:baseline; gap:.8rem; padding-top:var(--gap-s); border-top:1px solid var(--teal-line); }
+  .impact .big{ font-family:var(--f-disp); font-weight:800; font-size:clamp(1.5rem,3.2vw,2.5rem); color:var(--teal); line-height:1; letter-spacing:-.02em; white-space:nowrap; }
+  .impact .lbl{ font-size:var(--t-small); color:var(--ink-soft); line-height:1.35; }
+
+  /* KPI grid */
+  .kpi-grid{ display:grid; grid-template-columns:repeat(4,1fr); gap:1px; background:var(--line); border:1px solid var(--line); margin-top:var(--gap); border-radius:20px; overflow:hidden; }
+  @media (max-width:900px){ .kpi-grid{ grid-template-columns:1fr 1fr; } }
+  .kpi{ background:var(--bg); padding:clamp(1.3rem,2.8vw,2.4rem); display:flex; flex-direction:column; gap:.5rem; }
+  .kpi .n{ font-family:var(--f-disp); font-size:var(--t-kpi); font-weight:800; line-height:.9; letter-spacing:-0.03em; }
+  .kpi .n .u{ font-size:.32em; font-weight:600; color:var(--teal); vertical-align:super; margin-left:.15em; letter-spacing:0; }
+  .kpi .l{ font-size:var(--t-small); color:var(--ink-soft); line-height:1.45; }
+
+  /* Contacto */
+  .contact-grid{ display:flex; flex-wrap:wrap; gap:clamp(1.5rem,4vw,4rem); margin-top:calc(var(--gap)*1.4); padding-top:var(--gap); border-top:1px solid var(--line); }
+  .contact-grid .c .k{ font-family:var(--f-mono); font-size:var(--t-mono); text-transform:uppercase; letter-spacing:.16em; color:var(--ink-dim); margin-bottom:.3rem; }
+  .contact-grid .c .v{ font-size:var(--t-body); font-weight:600; }
+
+  /* Chrome */
+  #progress{ position:fixed; top:0; left:0; height:2px; background:linear-gradient(90deg,var(--teal-deep),var(--teal-2)); box-shadow:0 0 12px var(--teal-glow); transition:width var(--dur) var(--ease-2); z-index:300; }
+  .brand-fix{ position:fixed; top:clamp(1.2rem,3vh,2rem); left:var(--pad); z-index:200; font-family:var(--f-mono); font-size:var(--t-mono); letter-spacing:.18em; text-transform:uppercase; color:var(--ink-dim); display:flex; align-items:center; gap:.55rem; }
+  .brand-fix .dot{ width:7px; height:7px; border-radius:50%; background:var(--teal); box-shadow:0 0 10px var(--teal); }
+  #counter{ position:fixed; top:clamp(1.2rem,3vh,2rem); right:var(--pad); z-index:200; font-family:var(--f-mono); font-size:var(--t-mono); letter-spacing:.12em; color:var(--ink-dim); }
+  #counter b{ color:var(--teal); font-weight:600; }
+  #dots{ position:fixed; left:50%; bottom:clamp(1.3rem,3.5vh,2.4rem); transform:translateX(-50%); z-index:200; display:flex; gap:.42rem; flex-wrap:wrap; max-width:60vw; justify-content:center; }
+  #dots button{ width:7px; height:7px; border-radius:50%; background:rgba(255,255,255,0.16); transition:all .35s var(--ease); }
+  #dots button.on{ background:var(--teal); width:22px; border-radius:6px; box-shadow:0 0 10px var(--teal-glow); }
+  .nav-arrows{ position:fixed; bottom:clamp(1.1rem,3.2vh,2.2rem); right:var(--pad); z-index:200; display:flex; gap:.6rem; }
+  .nav-arrows button{ width:clamp(40px,4.5vw,50px); height:clamp(40px,4.5vw,50px); border-radius:50%; background:var(--bg-3); border:1px solid var(--line); color:var(--ink); display:flex; align-items:center; justify-content:center; transition:transform .25s var(--ease),background .25s var(--ease),opacity .25s; }
+  .nav-arrows button svg{ width:42%; height:42%; stroke:currentColor; fill:none; stroke-width:2; stroke-linecap:round; stroke-linejoin:round; }
+  .nav-arrows button:active{ transform:scale(0.92); }
+  .nav-arrows button.disabled{ opacity:.3; pointer-events:none; }
+  @media (hover:hover){ .nav-arrows button:hover{ background:var(--teal); color:#06251f; border-color:var(--teal); } }
+  .hint{ position:fixed; bottom:clamp(1.3rem,3.5vh,2.4rem); left:var(--pad); z-index:200; font-family:var(--f-mono); font-size:var(--t-mono); color:var(--ink-dim); letter-spacing:.08em; }
+
+  @media (max-height:780px){ :root{ --pad:clamp(1.5rem,4vw,3.8rem); --t-hero:clamp(1.8rem,5.5vw,3.8rem); --gap:clamp(.7rem,1.8vw,1.5rem); } .shot{ height:min(64vh,440px);} }
+  @media (max-height:640px){ :root{ --t-hero:clamp(1.5rem,5vw,2.6rem); --t-kpi:clamp(2rem,5vw,3.5rem); --t-body:clamp(.78rem,1.1vw,.92rem);} #dots,.hint{ display:none; } }
+  @media (max-width:560px){ .brand-fix span.long{ display:none; } }
+  @media (prefers-reduced-motion:reduce){ *,*::before,*::after{ animation-duration:.01ms!important; transition-duration:.25s!important; } }
+  </style>
+</head>
+<body>
+
+  <div id="progress"></div>
+  <div class="brand-fix"><span class="dot"></span><span>SCOP</span><span class="long">· Gobierno del Estado de Chihuahua</span></div>
+  <div id="counter"><b id="cur">01</b> / <span id="tot">22</span></div>
+
+  <div id="deck">
+
+    <!-- ============================ 01 · PORTADA ============================ -->
+    <section class="slide cover" aria-label="Portada">
+      <div class="cover-bg"><img src="assets/p8-render.jpeg" alt="Paso a desnivel — render aéreo"></div>
+      <div class="orb" style="width:55vw;height:55vw;top:-15%;right:-10%;"></div>
+      <div class="wrap">
+        <div class="eyebrow rv">Proyectos SCOP · Entrevista 2026</div>
+        <h1 class="hero rv">Nueve obras que<br><span class="grad">mueven a Chihuahua.</span></h1>
+        <p class="lead rv" style="margin-top:var(--gap);">Seis pasos a desnivel en Chihuahua capital y tres en Ciudad Juárez — el programa de infraestructura vial del Gobierno del Estado. Parte de los compromisos del 4.º Informe de la Gobernadora Maru Campos.</p>
+        <div class="cover-meta rv">
+          <div class="m"><span class="k">Ponente</span><span class="v accent">Jorge Chánez</span></div>
+          <div class="m"><span class="k">Cargo</span><span class="v">Secretario de Comunicaciones y Obras Públicas</span></div>
+          <div class="m"><span class="k">Obras</span><span class="v">9 pasos a desnivel · 2 municipios</span></div>
+          <div class="m"><span class="k">Año</span><span class="v">2026</span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================ 02 · VISIÓN GENERAL ============================ -->
+    <section class="slide" aria-label="Visión general">
+      <div class="orb" style="width:45vw;height:45vw;bottom:-20%;left:-10%;"></div>
+      <div class="wrap">
+        <div class="eyebrow rv">01 — Visión general</div>
+        <h2 class="rv">No es solo infraestructura:<br>es <span class="grad">calidad de vida</span>.</h2>
+        <p class="quote rv" style="margin-top:var(--gap);">«Cada minuto que ahorramos en el camino es un momento más en casa. Cada obra tiene como prioridad lo más importante: la seguridad y el bienestar de la gente.»</p>
+        <div class="feat-grid" data-stagger style="margin-top:calc(var(--gap)*1.2);">
+          <div class="feat"><div class="feat-in"><span class="ix">EJE 01</span><h3>Puentes / Movilidad</h3><p>Sistema integral de pasos a desnivel en Chihuahua capital.</p></div></div>
+          <div class="feat"><div class="feat-in"><span class="ix">EJE 02</span><h3>Ciudad Juárez</h3><p>Movilidad urbana alineada al Juárez Bus / BRT 4.</p></div></div>
+          <div class="feat"><div class="feat-in"><span class="ix">EJE 03</span><h3>Espacios públicos</h3><p>Recuperación de unidades deportivas y parques.</p></div></div>
+          <div class="feat"><div class="feat-in"><span class="ix">EJE 04</span><h3>Vialidades estratégicas</h3><p>Nuevas vialidades y rehabilitación de corredores clave.</p></div></div>
+          <div class="feat"><div class="feat-in"><span class="ix">EJE 05</span><h3>Conectividad regional</h3><p>Red carretera, puentes regionales y mantenimiento.</p></div></div>
+          <div class="feat"><div class="feat-in"><span class="ix">EJE 06</span><h3>Infraestructura social</h3><p>Salud, cultura e infraestructura gubernamental.</p></div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================ 03 · PUENTES CHIHUAHUA — INTRO ============================ -->
+    <section class="slide" aria-label="Puentes en Chihuahua">
+      <div class="orb" style="width:50vw;height:50vw;top:40%;right:-15%;"></div>
+      <div class="wrap">
+        <div class="split narrow-left">
+          <div>
+            <div class="eyebrow rv">02 — Puentes en Chihuahua</div>
+            <h2 class="rv">Seis pasos, una intervención estructurada.</h2>
+          </div>
+          <div>
+            <p class="lead rv">Un sistema integral de pasos a desnivel que atiende los principales puntos de conflicto vial de la ciudad, concentrado en los corredores más saturados.</p>
+            <ul class="points">
+              <li class="rv"><b>Zona Oriente:</b> conexión con el Aeropuerto Internacional — Palestina y Quinta Real.</li>
+              <li class="rv"><b>Zona Norte:</b> corredor Av. Tecnológico — salida hacia Ciudad Juárez (Los Arcos, Desarrollo, G. Prieto Luján).</li>
+              <li class="rv"><b>Zona Suroeste:</b> salida hacia Cuauhtémoc — Silvestre Terrazas.</li>
+              <li class="rv"><b>Periodo estimado:</b> 12 meses · concluir antes del cierre de la administración.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================ 04 · PASO 01 — PALESTINA ============================ -->
+    <section class="slide" aria-label="Paso Superior Fuerza Aérea Palestina">
+      <div class="wrap" style="max-width:1320px;">
+        <div class="obra">
+          <div class="shot rv-s">
+            <div class="main"><img src="assets/p1-render.png" alt="Paso Superior Palestina — render aéreo"></div>
+            <div class="tec"><img src="assets/p1-tec.png" alt="Sección estructural Palestina" style="object-position:center 65%"></div>
+          </div>
+          <div>
+            <div class="row-pills rv"><span class="pill sup">Superior</span><span class="pill lic"><span class="d"></span>Licitación · inicia mayo</span></div>
+            <div class="eyebrow rv" style="margin-bottom:.6rem;">Chihuahua · Paso 01 / 06</div>
+            <h2 class="obra-title rv">Paso Superior<br>Fuerza Aérea — Palestina</h2>
+            <div class="obra-loc rv">Zona Oriente · Av. Palestina y Av. Fuerza Aérea</div>
+            <ul class="kv rv">
+              <li><span class="k">Longitud</span><span class="v">560 m · ancho 16.00 m</span></li>
+              <li><span class="k">Estructuras</span><span class="v">2 — 4 claros (crucero) + 5 claros (FFCC)</span></li>
+              <li><span class="k">Carriles</span><span class="v">4 · muros de tierra armada</span></li>
+              <li><span class="k">Inversión</span><span class="v">+ $280 millones</span></li>
+            </ul>
+            <div class="impact rv"><span class="big">+20,000</span><span class="lbl">vehículos por sentido beneficiados · elimina el cruce a nivel con el ferrocarril</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================ 05 · PASO 02 — QUINTA REAL ============================ -->
+    <section class="slide" aria-label="Paso Superior Juan Pablo II Quinta Real">
+      <div class="wrap" style="max-width:1320px;">
+        <div class="obra flip">
+          <div class="shot rv-s">
+            <div class="main"><img src="assets/p2-render.png" alt="Paso Superior Quinta Real — render" style="object-position:right center"></div>
+            <div class="tec"><img src="assets/p2-tec.jpg" alt="Sección estructural Quinta Real"></div>
+          </div>
+          <div>
+            <div class="row-pills rv"><span class="pill sup">Superior</span><span class="pill lic"><span class="d"></span>Licitación · fin de abril</span></div>
+            <div class="eyebrow rv" style="margin-bottom:.6rem;">Chihuahua · Paso 02 / 06</div>
+            <h2 class="obra-title rv">Paso Superior<br>Juan Pablo II — Quinta Real</h2>
+            <div class="obra-loc rv">Zona Oriente · Av. Juan Pablo II y Av. Quinta Real</div>
+            <ul class="kv rv">
+              <li><span class="k">Longitud</span><span class="v">440 m · 7 claros · ancho 18.0 m</span></li>
+              <li><span class="k">Carriles</span><span class="v">4 + camellón central + parapetos</span></li>
+              <li><span class="k">Distribución</span><span class="v">Glorieta bajo el claro central</span></li>
+              <li><span class="k">Inversión</span><span class="v">+ $160 millones</span></li>
+            </ul>
+            <div class="impact rv"><span class="big">+15,000</span><span class="lbl">vehículos por sentido · mejora el acceso al Aeropuerto Internacional</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================ 06 · PASO 03 — LOS ARCOS ============================ -->
+    <section class="slide" aria-label="Paso Inferior Tecnológico Los Arcos">
+      <div class="wrap" style="max-width:1320px;">
+        <div class="obra">
+          <div class="shot rv-s">
+            <div class="main"><img src="assets/p3-render.png" alt="Paso Inferior Los Arcos — render" style="object-position:center 30%"></div>
+            <div class="tec"><img src="assets/p3-tec.jpg" alt="Diseño técnico Los Arcos"></div>
+          </div>
+          <div>
+            <div class="row-pills rv"><span class="pill inf">Inferior</span><span class="pill proc"><span class="d"></span>Proceso técnico-legal</span></div>
+            <div class="eyebrow rv" style="margin-bottom:.6rem;">Chihuahua · Paso 03 / 06 · Corredor Tecnológico</div>
+            <h2 class="obra-title rv">Paso Inferior<br>Tecnológico — Av. Los Arcos</h2>
+            <div class="obra-loc rv">Zona Norte · a la altura de Pistolas Meneses</div>
+            <ul class="kv rv">
+              <li><span class="k">Tipología</span><span class="v">Deprimido · 3 carriles por sentido</span></li>
+              <li><span class="k">Laterales</span><span class="v">Cruce semaforizado direccional</span></li>
+              <li><span class="k">Conexión</span><span class="v">Salida norte → Carretera federal 45</span></li>
+              <li><span class="k">Inversión</span><span class="v">$183.6 millones</span></li>
+            </ul>
+            <div class="impact rv"><span class="big">+43,000</span><span class="lbl">vehículos por sentido · el cruce de mayor volumen del corredor</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================ 07 · PASO 04 — AV. DESARROLLO ============================ -->
+    <section class="slide" aria-label="Paso Superior Tecnológico Av. Desarrollo">
+      <div class="wrap" style="max-width:1320px;">
+        <div class="obra flip">
+          <div class="shot rv-s">
+            <div class="main"><img src="assets/p4-render.png" alt="Paso Superior Av. Desarrollo — vista aérea"></div>
+            <div class="tec"><img src="assets/p4-tec.png" alt="Diseño técnico Av. Desarrollo"></div>
+          </div>
+          <div>
+            <div class="row-pills rv"><span class="pill sup">Superior</span><span class="pill proc"><span class="d"></span>Proceso técnico-legal</span></div>
+            <div class="eyebrow rv" style="margin-bottom:.6rem;">Chihuahua · Paso 04 / 06 · Corredor Tecnológico</div>
+            <h2 class="obra-title rv">Paso Superior<br>Tecnológico — Av. Desarrollo</h2>
+            <div class="obra-loc rv">Zona Norte · último semáforo hacia la salida a Juárez</div>
+            <ul class="kv rv">
+              <li><span class="k">Estructuras</span><span class="v">2 separadas · 3 carriles cada una</span></li>
+              <li><span class="k">Laterales</span><span class="v">Cruce semaforizado direccional</span></li>
+              <li><span class="k">Conexión</span><span class="v">Salida norte → Carretera federal 45</span></li>
+              <li><span class="k">Inversión</span><span class="v">$200.7 millones</span></li>
+            </ul>
+            <div class="impact rv"><span class="big">+35,000</span><span class="lbl">vehículos por sentido · flujo continuo en el corredor Tecnológico</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================ 08 · PASO 05 — G. PRIETO LUJÁN ============================ -->
+    <section class="slide" aria-label="Paso Superior Tecnológico Guillermo Prieto Luján">
+      <div class="wrap" style="max-width:1320px;">
+        <div class="obra">
+          <div class="shot rv-s">
+            <div class="main"><img src="assets/p5-render.png" alt="Paso Superior Guillermo Prieto Luján — vista aérea"></div>
+            <div class="tec"><img src="assets/p5-tec.jpg" alt="Diseño técnico Guillermo Prieto Luján"></div>
+          </div>
+          <div>
+            <div class="row-pills rv"><span class="pill sup">Superior</span><span class="pill proc"><span class="d"></span>Proceso técnico-legal</span></div>
+            <div class="eyebrow rv" style="margin-bottom:.6rem;">Chihuahua · Paso 05 / 06 · Corredor Tecnológico</div>
+            <h2 class="obra-title rv">Paso Superior<br>Tecnológico — G. Prieto Luján</h2>
+            <div class="obra-loc rv">Zona Norte · a la altura de la Coca-Cola</div>
+            <ul class="kv rv">
+              <li><span class="k">Estructuras</span><span class="v">2 separadas · 6 claros · 11.0 m c/u</span></li>
+              <li><span class="k">Carriles</span><span class="v">3 por estructura · tierra armada</span></li>
+              <li><span class="k">Laterales</span><span class="v">Cruce semaforizado direccional</span></li>
+              <li><span class="k">Inversión</span><span class="v">$200.7 millones</span></li>
+            </ul>
+            <div class="impact rv"><span class="big">+40,000</span><span class="lbl">vehículos por sentido · ordena la salida norte de la ciudad</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================ 09 · PASO 06 — SILVESTRE TERRAZAS ============================ -->
+    <section class="slide" aria-label="Paso Inferior Silvestre Terrazas Calle 120">
+      <div class="wrap" style="max-width:1320px;">
+        <div class="obra flip">
+          <div class="shot rv-s">
+            <div class="main"><img src="assets/p6-render.png" alt="Paso Inferior Silvestre Terrazas — render"></div>
+            <div class="tec"><img src="assets/p6-tec.jpg" alt="Diseño técnico Silvestre Terrazas"></div>
+          </div>
+          <div>
+            <div class="row-pills rv"><span class="pill inf">Inferior</span><span class="pill cart"><span class="d"></span>En cartera</span></div>
+            <div class="eyebrow rv" style="margin-bottom:.6rem;">Chihuahua · Paso 06 / 06</div>
+            <h2 class="obra-title rv">Paso Inferior<br>Silvestre Terrazas — Calle 120</h2>
+            <div class="obra-loc rv">Zona Suroeste · salida hacia Cuauhtémoc</div>
+            <ul class="kv rv">
+              <li><span class="k">Longitud</span><span class="v">520 m · ancho 15.70 m</span></li>
+              <li><span class="k">Calzadas</span><span class="v">2 de 7.0 m · 2 carriles cada una</span></li>
+              <li><span class="k">Puente</span><span class="v">26 m de ancho sobre el crucero</span></li>
+              <li><span class="k">Inversión</span><span class="v">$126 millones</span></li>
+            </ul>
+            <div class="impact rv"><span class="big">+12,000</span><span class="lbl">vehículos por sentido · reduce conflictos en la zona suroeste</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================ 10 · LABOR DE TERRAZAS ============================ -->
+    <section class="slide" aria-label="Prolongación Av. Teófilo Borunda — Labor de Terrazas">
+      <div class="orb" style="width:45vw;height:45vw;bottom:-25%;left:-10%;"></div>
+      <div class="wrap">
+        <div class="split">
+          <div>
+            <div class="row-pills rv"><span class="pill lic"><span class="d"></span>Inicia esta semana</span></div>
+            <div class="eyebrow rv" style="margin-bottom:.6rem;">Chihuahua · Vialidad estratégica</div>
+            <h2 class="rv">Prolongación Av. Teófilo Borunda</h2>
+            <div class="obra-loc rv">Acceso a Labor de Terrazas · sur-poniente</div>
+            <p class="quote rv" style="margin-top:var(--gap);">«No solo construimos nuevas vialidades, resolvemos problemas históricos de acceso.»</p>
+          </div>
+          <div class="panel rv-s">
+            <div class="ph"><h3>Alcance</h3><span class="amt">+$17 M</span></div>
+            <ul class="points tight" style="margin-top:0;">
+              <li><b>+2 km</b> de intervención · 4 frentes de trabajo</li>
+              <li>Nueva vialidad · pavimentación y rehabilitación</li>
+              <li>Drenaje pluvial · señalamiento completo</li>
+            </ul>
+            <div style="height:1px;background:var(--line);margin:.3rem 0;"></div>
+            <span class="sub">Colonias beneficiadas</span>
+            <p style="font-size:var(--t-small);color:var(--ink-soft);line-height:1.5;">Labor de Terrazas · Bosques de San Francisco · Romanzza · Altozano · Verona.</p>
+            <p style="font-size:var(--t-small);color:var(--ink-dim);">Mejora la conectividad sur-poniente, ordena accesos y reduce tiempos de traslado.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================ 11 · CIUDAD JUÁREZ — INTRO ============================ -->
+    <section class="slide" aria-label="Ciudad Juárez">
+      <div class="orb" style="width:50vw;height:50vw;top:45%;left:-12%;"></div>
+      <div class="wrap">
+        <div class="split narrow-left">
+          <div>
+            <div class="eyebrow rv">03 — Ciudad Juárez</div>
+            <h2 class="rv">Tres pasos sobre Av. Las Torres.</h2>
+          </div>
+          <div>
+            <p class="lead rv">Movilidad urbana en la frontera: tres pasos inferiores que destraban el corredor Villarreal Torres, alineados al avance del Juárez Bus / BRT 4.</p>
+            <ul class="points">
+              <li class="rv"><b>$420 millones</b> de inversión en los tres pasos a desnivel.</li>
+              <li class="rv">Objetivo: mejorar fluidez, reducir tiempos e incrementar la seguridad vial.</li>
+              <li class="rv">Atienden la industria maquiladora, el aeropuerto y los sectores de mayor crecimiento.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================ 12 · JUÁREZ PASO 01 — TALAMÁS ============================ -->
+    <section class="slide" aria-label="Paso Inferior Talamás Camandari">
+      <div class="wrap" style="max-width:1320px;">
+        <div class="obra">
+          <div class="shot single rv-s">
+            <div class="main"><img src="assets/p7-render.jpeg" alt="Paso Inferior Talamás Camandari — render aéreo"></div>
+          </div>
+          <div>
+            <div class="row-pills rv"><span class="pill inf">Inferior</span><span class="pill proc"><span class="d"></span>Jul 2026 — Feb 2027</span></div>
+            <div class="eyebrow rv" style="margin-bottom:.6rem;">Ciudad Juárez · Paso 01 / 03</div>
+            <h2 class="obra-title rv">Paso Inferior<br>Talamás Camandari — De las Torres</h2>
+            <div class="obra-loc rv">Suroriente · corredor Independencia</div>
+            <ul class="kv rv">
+              <li><span class="k">Inversión</span><span class="v">$180 millones</span></li>
+              <li><span class="k">Periodo</span><span class="v">Julio 2026 — Febrero 2027</span></li>
+              <li><span class="k">Beneficia</span><span class="v">Parajes del Sur · Senderos de San Isidro · Valle de Allende · Horizontes del Sur</span></li>
+            </ul>
+            <div class="impact rv"><span class="big">Suroriente</span><span class="lbl">uno de los cruces más transitados · agiliza traslados a trabajo, escuelas y comercio</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================ 13 · JUÁREZ PASO 02 — TOMÁS FERNÁNDEZ ============================ -->
+    <section class="slide" aria-label="Paso Inferior Av. Las Torres y Tomás Fernández">
+      <div class="wrap" style="max-width:1320px;">
+        <div class="obra flip">
+          <div class="shot single rv-s">
+            <div class="main"><img src="assets/p9-render.png" alt="Paso Inferior Tomás Fernández — vista aérea"></div>
+          </div>
+          <div>
+            <div class="row-pills rv"><span class="pill inf">Inferior</span><span class="pill proc"><span class="d"></span>Sep 2026 — Jun 2027</span></div>
+            <div class="eyebrow rv" style="margin-bottom:.6rem;">Ciudad Juárez · Paso 02 / 03</div>
+            <h2 class="obra-title rv">Paso Inferior<br>Av. Las Torres — Tomás Fernández</h2>
+            <div class="obra-loc rv">Corredor industrial · Villarreal Torres</div>
+            <ul class="kv rv">
+              <li><span class="k">Inversión</span><span class="v">$120 millones</span></li>
+              <li><span class="k">Periodo</span><span class="v">Septiembre 2026 — Junio 2027</span></li>
+              <li><span class="k">Beneficia</span><span class="v">Trabajadores de la industria maquiladora</span></li>
+            </ul>
+            <div class="impact rv"><span class="big">Maquila</span><span class="lbl">mejora la circulación hacia el aeropuerto y los corredores industriales</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================ 14 · JUÁREZ PASO 03 — VALLE DEL SOL ============================ -->
+    <section class="slide" aria-label="Paso Inferior Av. Las Torres y Valle del Sol">
+      <div class="wrap" style="max-width:1320px;">
+        <div class="obra">
+          <div class="shot single rv-s">
+            <div class="main"><img src="assets/p8-render.jpeg" alt="Paso Inferior Valle del Sol — vista aérea"></div>
+          </div>
+          <div>
+            <div class="row-pills rv"><span class="pill inf">Inferior</span><span class="pill proc"><span class="d"></span>Sep 2026 — Mar 2027</span></div>
+            <div class="eyebrow rv" style="margin-bottom:.6rem;">Ciudad Juárez · Paso 03 / 03</div>
+            <h2 class="obra-title rv">Paso Inferior<br>Av. Las Torres — Valle del Sol</h2>
+            <div class="obra-loc rv">Sector de mayor crecimiento habitacional y comercial</div>
+            <ul class="kv rv">
+              <li><span class="k">Inversión</span><span class="v">$120 millones</span></li>
+              <li><span class="k">Periodo</span><span class="v">Septiembre 2026 — Marzo 2027</span></li>
+              <li><span class="k">Beneficia</span><span class="v">Valle del Sol · Campos Elíseos · Jardines del Lago · Las Misiones</span></li>
+            </ul>
+            <div class="impact rv"><span class="big">+Seguridad</span><span class="lbl">reduce tiempos en horas de máxima demanda e incrementa la seguridad vial</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================ 15 · JUÁREZ — INVERSIÓN HISTÓRICA ============================ -->
+    <section class="slide" aria-label="Ciudad Juárez — Inversión histórica">
+      <div class="orb" style="width:42vw;height:42vw;top:-15%;right:-5%;"></div>
+      <div class="wrap" style="max-width:1180px;">
+        <div class="eyebrow rv">03 — Ciudad Juárez · Trayectoria</div>
+        <h2 class="rv">La frontera con mayor inversión.</h2>
+        <p class="lead rv" style="margin-top:var(--gap-s);">Más allá de los pasos a desnivel, Juárez concentra una inversión histórica del Gobierno del Estado.</p>
+        <div class="kpi-grid rv-s">
+          <div class="kpi"><div class="n">+1,754<span class="u">MDP</span></div><div class="l">Inversión global en la frontera (+$1,128 M SCOP)</div></div>
+          <div class="kpi"><div class="n">529<span class="u">MDP</span></div><div class="l">Sistema BRT II — transporte público modernizado</div></div>
+          <div class="kpi"><div class="n">+150<span class="u">MDP</span></div><div class="l">Rehabilitación de más de 30 calles</div></div>
+          <div class="kpi"><div class="n">72<span class="u">MDP</span></div><div class="l">Centro de Servicios Administrativos El Mezquital</div></div>
+        </div>
+        <p class="rv" style="margin-top:var(--gap);font-size:var(--t-small);color:var(--ink-dim);line-height:1.6;">También concluido: <b style="color:var(--ink-soft)">UCIN del Hospital de la Mujer</b> · Infraestructura de seguridad (Fiscalía y CERESO Estatal No. 3) · 5 parques rehabilitados (Reforma, San Ángel, Fidel Velázquez, Echacala, Fuentes del Valle).</p>
+      </div>
+    </section>
+
+    <!-- ============================ 16 · JUÁREZ — OBRAS EN PROCESO Y CONSERVACIÓN ============================ -->
+    <section class="slide" aria-label="Ciudad Juárez — Obras en proceso y conservación">
+      <div class="wrap">
+        <div class="eyebrow rv">03 — Ciudad Juárez · En proceso</div>
+        <h2 class="rv">Obras en proceso y conservación vial.</h2>
+        <div class="col-2">
+          <div class="panel rv-s">
+            <div class="ph"><h3>Obras en proceso</h3><span class="sub">Planeación 2026</span></div>
+            <ul class="points tight" style="margin-top:0;">
+              <li><b>Centro Cultural Paso del Norte</b> — $60 M (2.ª etapa)</li>
+              <li><b>Centro de Salud Kilómetros</b> — $26.6 M</li>
+              <li><b>Hospital General</b> — $16.3 M (área de cirugía)</li>
+              <li><b>Cancha y domo Esc. Leona Vicario</b> — $6.3 M (DIF Estatal)</li>
+              <li>Sistema BRT — semaforización, eléctricas y carriles confinados</li>
+              <li>Registro Civil — Aztecas, Ex Aduana, Pueblito Mexicano</li>
+            </ul>
+          </div>
+          <div class="panel rv-s">
+            <div class="ph"><h3>Conservación vial 2026</h3></div>
+            <ul class="points tight dim" style="margin-top:0;">
+              <li><b style="color:var(--ink)">1er paquete de calles</b> — $20.4 M · 10 calles · +58,000 m²</li>
+              <li><b style="color:var(--ink)">Programa de bacheo</b> (may–jun) — 304 baches · 627 m² rehabilitados</li>
+              <li><b style="color:var(--ink)">Recuperación de 7 parques</b> — Banús, Las Arcadas, Moradas del Porvenir, Gardeno, Los Lirios, Pradera Dorada, San Pablo</li>
+            </ul>
+            <div style="height:1px;background:var(--line);margin:.3rem 0;"></div>
+            <p class="quote" style="font-size:var(--t-body);border-color:var(--teal);">«Mantenemos acciones permanentes de rehabilitación de calles y bacheo en distintos sectores de la ciudad.»</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================ 17 · ESPACIOS PÚBLICOS (CHIHUAHUA) ============================ -->
+    <section class="slide" aria-label="Espacios públicos">
+      <div class="wrap">
+        <div class="eyebrow rv">04 — Espacios públicos</div>
+        <h2 class="rv">Recuperar lo que vive la familia.</h2>
+        <div class="col-2">
+          <div class="panel rv-s">
+            <div class="ph"><h3>Unidad Deportiva Norte<br>«Pistolas Meneses»</h3><span class="pill lic"><span class="d"></span>Inicia abr–may</span></div>
+            <ul class="points tight" style="margin-top:0;">
+              <li>Acceso principal · vías y tren · estación</li>
+              <li>Módulo de sanitarios · tobogán</li>
+              <li>Cubierta / cancha de futbol · laberinto</li>
+              <li>Circuito de carritos · ciclismo, patinaje y caminata</li>
+              <li>Área de juegos</li>
+            </ul>
+            <p style="font-size:var(--t-small);color:var(--ink-dim);line-height:1.5;">Meta de entrega: <b style="color:var(--ink-soft)">noviembre 2026</b> (Dip. Nancy Frías).</p>
+          </div>
+          <div class="panel rv-s">
+            <div class="ph"><h3>Parques a rehabilitar</h3></div>
+            <ul class="points tight dim" style="margin-top:0;">
+              <li>Parque La Esperanza</li>
+              <li>Parque La Alianza</li>
+              <li>Parque Ponce de León</li>
+            </ul>
+            <div style="height:1px;background:var(--line);margin:.3rem 0;"></div>
+            <p class="quote" style="font-size:var(--t-body);border-color:var(--teal);">«Una obra importante para la recuperación de espacios deportivos y la convivencia familiar.»</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================ 18 · VIALIDADES — PERIFÉRICO ============================ -->
+    <section class="slide" aria-label="Vialidades estratégicas — Periférico de la Juventud">
+      <div class="orb" style="width:42vw;height:42vw;top:-12%;right:-8%;"></div>
+      <div class="wrap">
+        <div class="split">
+          <div>
+            <div class="eyebrow rv">05 — Vialidades estratégicas</div>
+            <h2 class="rv">La principal avenida de la ciudad.</h2>
+            <p class="lead rv" style="margin-top:var(--gap);">Rehabilitación del Periférico de la Juventud en los tramos entre el Distribuidor Tricentenario y el Circuito Universitario.</p>
+            <p class="quote rv" style="margin-top:var(--gap);">«Estamos dando atención a la principal avenida de la ciudad.»</p>
+          </div>
+          <div class="panel rv-s">
+            <div class="ph"><h3>Periférico de la Juventud</h3><span class="amt">+33,000 m²</span></div>
+            <ul class="points tight" style="margin-top:0;">
+              <li>Fresado de pavimento</li>
+              <li>Renivelación de superficie</li>
+              <li>Nueva carpeta asfáltica en tramos aislados</li>
+            </ul>
+            <div style="height:1px;background:var(--line);margin:.3rem 0;"></div>
+            <p style="font-size:var(--t-small);color:var(--ink-dim);">Mejora el rodamiento, reduce riesgos y da mayor fluidez a una de las vialidades con más tránsito.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================ 19 · CONECTIVIDAD REGIONAL ============================ -->
+    <section class="slide" aria-label="Conectividad y red carretera">
+      <div class="wrap">
+        <div class="split">
+          <div>
+            <div class="eyebrow rv">06 — Conectividad regional</div>
+            <h2 class="rv">Una red que impulsa la economía.</h2>
+            <p class="lead rv" style="margin-top:var(--gap);">Mantenimiento y fortalecimiento de la red carretera estatal para un tránsito seguro y una movilidad eficiente.</p>
+            <p class="quote rv" style="margin-top:var(--gap);">«Se fortalece la conectividad para impulsar la economía.»</p>
+          </div>
+          <div class="panel rv-s">
+            <span class="sub">Intervenciones</span>
+            <ul class="points tight" style="margin-top:.3rem;">
+              <li><b>Puentes regionales:</b> Alsacia, San Ignacio, Río Florido</li>
+              <li>Corredores regionales</li>
+              <li>Señalamiento carretero</li>
+            </ul>
+            <div style="height:1px;background:var(--line);margin:.5rem 0;"></div>
+            <span class="sub">Beneficios del mantenimiento</span>
+            <ul class="points tight dim" style="margin-top:.3rem;">
+              <li>Tránsito seguro</li>
+              <li>Movilidad eficiente</li>
+              <li>Menor desgaste vehicular</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================ 20 · INFRAESTRUCTURA SOCIAL ============================ -->
+    <section class="slide" aria-label="Infraestructura social">
+      <div class="orb" style="width:40vw;height:40vw;top:-10%;right:-8%;"></div>
+      <div class="wrap">
+        <div class="eyebrow rv">07 — Infraestructura social</div>
+        <h2 class="rv">Salud, cultura y servicios.</h2>
+        <div class="col-2">
+          <div class="panel rv-s">
+            <div class="ph"><h3>Salud</h3><span class="sub">Hospitalaria</span></div>
+            <p style="font-size:var(--t-small);color:var(--ink-soft);line-height:1.5;">Ampliaciones y rehabilitaciones que fortalecen la capacidad del sistema:</p>
+            <ul class="points tight" style="margin-top:0;">
+              <li>Hospital Central Universitario</li>
+              <li>Hospital General Juárez</li>
+              <li>Hospitales en Delicias, Cuauhtémoc y Nuevo Casas Grandes</li>
+            </ul>
+            <p style="font-size:var(--t-small);color:var(--ink-dim);">Mayor capacidad y mejor atención para la población.</p>
+          </div>
+          <div class="panel rv-s">
+            <div class="ph"><h3>Cultura y gobierno</h3></div>
+            <ul class="points tight dim" style="margin-top:0;">
+              <li><b>Teatro de los Héroes</b> — cambio de piso en todo el recinto</li>
+              <li>Museo Casa Redonda</li>
+              <li>Registro Civil</li>
+              <li>Tribunal Estatal Electoral</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================ 21 · AUXILIO CARRETERO ============================ -->
+    <section class="slide" aria-label="Auxilio carretero Semana Santa">
+      <div class="wrap" style="max-width:1180px;">
+        <div class="eyebrow rv">08 — Operativo especial</div>
+        <h2 class="rv">Auxilio Carretero · Semana Santa 2026.</h2>
+        <p class="lead rv" style="margin-top:var(--gap-s);">Volantas con mecánicos y atención directa en rutas estratégicas — Chihuahua–Ahumada, Delicias–Jiménez y Chihuahua–Creel. <b style="color:var(--ink)">Servicio sin costo para la ciudadanía.</b></p>
+        <div class="kpi-grid rv-s">
+          <div class="kpi"><div class="n">56</div><div class="l">Rescates carreteros realizados</div></div>
+          <div class="kpi"><div class="n">3</div><div class="l">Rutas estratégicas atendidas</div></div>
+          <div class="kpi"><div class="n">4</div><div class="l">Tipos de atención: ponchaduras, fallas mecánicas, combustible, sobrecalentamiento</div></div>
+          <div class="kpi"><div class="n">$0</div><div class="l">Costo para el ciudadano — equipamiento completo a bordo</div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================ 22 · MOMENTO ACTUAL / CIERRE ============================ -->
+    <section class="slide cover" aria-label="Momento actual y cierre">
+      <div class="cover-bg"><img src="assets/p9-render.png" alt="Paso a desnivel — render aéreo"></div>
+      <div class="orb" style="width:50vw;height:50vw;top:-10%;left:-5%;"></div>
+      <div class="wrap" style="padding:0;">
+        <div class="eyebrow rv">09 — Momento actual</div>
+        <h1 class="hero rv">Tres frentes,<br><span class="grad">una misma misión.</span></h1>
+        <ul class="points rv" style="margin-top:var(--gap);">
+          <li><b>Conectividad carretera</b> — red regional que impulsa la economía.</li>
+          <li><b>Movilidad urbana</b> — nueve pasos a desnivel en Chihuahua y Juárez.</li>
+          <li><b>Infraestructura social</b> — salud, cultura y espacios públicos.</li>
+        </ul>
+        <p class="quote rv" style="margin-top:var(--gap);">«Estamos ejecutando obra pública que impacta directamente en la vida diaria de las personas, tanto en sus traslados como en el acceso a servicios.»</p>
+        <div class="contact-grid rv">
+          <div class="c"><div class="k">Dependencia</div><div class="v">Secretaría de Comunicaciones y Obras Públicas</div></div>
+          <div class="c"><div class="k">Ponente</div><div class="v">Jorge Chánez · Secretario SCOP</div></div>
+          <div class="c"><div class="k">Gobierno</div><div class="v">Estado de Chihuahua · 2026</div></div>
+        </div>
+      </div>
+    </section>
+
+  </div><!-- /deck -->
+
+  <nav id="dots" aria-label="Ir a sección"></nav>
+  <div class="hint">← →&nbsp;&nbsp;navegar</div>
+  <div class="nav-arrows">
+    <button id="prev" aria-label="Anterior"><svg viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></svg></button>
+    <button id="next" aria-label="Siguiente"><svg viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></svg></button>
+  </div>
+
+  <script>
+  /* ============================================================
+     CONTROLADOR DE PRESENTACIÓN
+     ← → ↑ ↓ Espacio · rueda · botones · dots · Home/End · swipe
+     ============================================================ */
+  (() => {
+    const deck = document.getElementById('deck');
+    const slides = [...document.querySelectorAll('.slide')];
+    const total = slides.length;
+    let cur = 0, busy = false, tStart = 0;
+
+    document.getElementById('tot').textContent = String(total).padStart(2,'0');
+
+    const dotsEl = document.getElementById('dots');
+    slides.forEach((_, i) => {
+      const b = document.createElement('button');
+      b.setAttribute('aria-label', 'Sección ' + (i+1));
+      b.addEventListener('click', () => go(i));
+      dotsEl.appendChild(b);
+    });
+    const dots = [...dotsEl.children];
+
+    function go(i, instant = false) {
+      i = Math.max(0, Math.min(total - 1, i));
+      if (i === cur && !instant) return;
+      if (busy && !instant) return;
+      busy = true;
+      slides[cur].classList.remove('active');
+      cur = i;
+      deck.style.transition = instant ? 'none' : '';
+      deck.style.transform = 'translateX(-' + (cur * 100) + 'vw)';
+      requestAnimationFrame(() => slides[cur].classList.add('active'));
+      setTimeout(() => { busy = false; }, instant ? 0 : 600);
+      updateChrome();
+    }
+
+    function updateChrome() {
+      document.getElementById('progress').style.width = (total > 1 ? (cur/(total-1))*100 : 100) + '%';
+      document.getElementById('cur').textContent = String(cur+1).padStart(2,'0');
+      dots.forEach((d, i) => d.classList.toggle('on', i === cur));
+      document.getElementById('prev').classList.toggle('disabled', cur === 0);
+      document.getElementById('next').classList.toggle('disabled', cur === total-1);
+    }
+
+    document.addEventListener('keydown', e => {
+      switch (e.key) {
+        case 'ArrowRight': case 'ArrowDown': case ' ': case 'PageDown':
+          e.preventDefault(); go(cur+1); break;
+        case 'ArrowLeft': case 'ArrowUp': case 'PageUp':
+          e.preventDefault(); go(cur-1); break;
+        case 'Home': e.preventDefault(); go(0); break;
+        case 'End':  e.preventDefault(); go(total-1); break;
+      }
+    });
+
+    document.getElementById('next').addEventListener('click', () => go(cur+1));
+    document.getElementById('prev').addEventListener('click', () => go(cur-1));
+
+    let wheelLock = false;
+    window.addEventListener('wheel', e => {
+      if (wheelLock) return;
+      const d = Math.abs(e.deltaX) > Math.abs(e.deltaY) ? e.deltaX : e.deltaY;
+      if (Math.abs(d) < 22) return;
+      wheelLock = true;
+      go(cur + (d > 0 ? 1 : -1));
+      setTimeout(() => { wheelLock = false; }, 700);
+    }, { passive: true });
+
+    window.addEventListener('touchstart', e => { tStart = e.touches[0].clientX; }, { passive: true });
+    window.addEventListener('touchend', e => {
+      const dx = e.changedTouches[0].clientX - tStart;
+      if (Math.abs(dx) > 55) go(cur + (dx < 0 ? 1 : -1));
+    }, { passive: true });
+
+    go(0, true);
+  })();
+  </script>
+</body>
+</html>

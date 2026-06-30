@@ -1,0 +1,15 @@
+{
+  "name": "scop-2026-pitch-deck",
+  "version": "1.0.0",
+  "description": "Presentación web — Proyectos SCOP 2026, Gobierno del Estado de Chihuahua",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "express": "^4.19.2"
+  }
+}
