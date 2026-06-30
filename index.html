@@ -190,6 +190,17 @@
   .logos-container .logo-scop{ max-height:clamp(50px,7vh,100px); }
   .logos-container .logo-gov{ max-height:clamp(70px,9vh,130px); }
   @keyframes fadeIn{ from{ opacity:0; } to{ opacity:1; } }
+
+  /* Cierre — sello institucional (más jerarquía para el logo de Gobierno) */
+  .closing-seal{ position:absolute; bottom:var(--pad); right:var(--pad); z-index:10; display:flex; align-items:center; gap:clamp(1.6rem,3vw,2.6rem); }
+  .closing-seal::before{ content:''; width:1px; align-self:stretch; background:var(--line); opacity:0; transition:opacity 1s var(--ease) 1.05s; }
+  .slide.active .closing-seal::before{ opacity:1; }
+  .closing-seal .mark{ opacity:0; transform:translateY(18px) scale(0.94); transition:opacity 1s cubic-bezier(0.16,1,0.3,1),transform 1s cubic-bezier(0.16,1,0.3,1); width:auto; object-fit:contain; }
+  .slide.active .closing-seal .mark{ opacity:1; transform:none; }
+  .closing-seal .mark-scop{ max-height:clamp(56px,8vh,96px); transition-delay:.75s; }
+  .closing-seal .mark-gov{ max-height:clamp(120px,17vh,220px); transition-delay:.95s; filter:drop-shadow(0 0 28px var(--teal-glow)); }
+  @media (max-height:780px){ .closing-seal .mark-gov{ max-height:clamp(90px,14vh,160px); } .closing-seal .mark-scop{ max-height:clamp(44px,6.5vh,72px); } }
+  @media (prefers-reduced-motion:reduce){ .closing-seal .mark,.closing-seal::before{ transition-duration:.25s!important; transform:none!important; } }
   </style>
 </head>
 <body>
@@ -725,9 +736,9 @@
           <div class="c"><div class="k">Gobierno</div><div class="v">Estado de Chihuahua · 2026</div></div>
         </div>
       </div>
-      <div class="logos-container">
-        <img src="assets/SCOP Blanco.png" alt="Logo SCOP" class="logo-scop">
-        <img src="assets/Institucional Blanco vertical.png" alt="Gobierno del Estado de Chihuahua" class="logo-gov">
+      <div class="closing-seal">
+        <img src="assets/SCOP Blanco.png" alt="Logo SCOP" class="mark mark-scop">
+        <img src="assets/Institucional Blanco vertical.png" alt="Gobierno del Estado de Chihuahua" class="mark mark-gov">
       </div>
     </section>
 
