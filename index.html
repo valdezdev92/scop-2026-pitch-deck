@@ -197,6 +197,26 @@
   .gov-logo-right img{ max-height:clamp(90px,13vh,180px); width:auto; object-fit:contain; }
 
   @media (prefers-reduced-motion:reduce){ .logos-container,.gov-logo-right{ transition-duration:.25s!important; transform:none!important; } }
+
+  /* Mapa de Chihuahua — marcadores con onda titilante (sonar) sobre los puntos rojos */
+  .map-frame{ position:relative; width:100%; aspect-ratio:2276/1856; border-radius:16px; overflow:hidden; border:1px solid var(--line); box-shadow:0 30px 60px -20px rgba(0,0,0,0.5); }
+  .map-frame img{ width:100%; height:100%; object-fit:cover; display:block; }
+  .map-pin{ position:absolute; width:0; height:0; }
+  .map-pin::before{
+    content:''; position:absolute; top:0; left:0; width:38px; height:38px; margin:-19px 0 0 -19px;
+    border-radius:50%; border:2px solid rgba(255,76,76,0.95);
+    background:radial-gradient(circle,rgba(255,76,76,0.55) 0%,rgba(255,76,76,0) 70%);
+    box-shadow:0 0 18px 4px rgba(255,76,76,0.6);
+    opacity:0; transform:scale(0.4);
+    animation:mapPingSeq 4.8s cubic-bezier(0,0.4,0.35,1) infinite; animation-delay:var(--d,0s);
+  }
+  @keyframes mapPingSeq{
+    0%{ transform:scale(0.4); opacity:1; }
+    15%{ transform:scale(4.4); opacity:0; }
+    15.01%,100%{ transform:scale(0.4); opacity:0; }
+  }
+  @media (prefers-reduced-motion:reduce){ .map-pin::before,.map-pin::after{ animation:none; opacity:0; } }
+  @media (max-width:900px){ .map-frame{ margin-top:var(--gap); } }
   </style>
 </head>
 <body>
@@ -253,15 +273,22 @@
           <div>
             <div class="eyebrow rv">02 — Puentes en Chihuahua</div>
             <h2 class="rv">Seis pasos, una intervención estructurada.</h2>
-          </div>
-          <div>
-            <p class="lead rv">Un sistema integral de pasos a desnivel que atiende los principales puntos de conflicto vial de la ciudad, concentrado en los corredores más saturados.</p>
-            <ul class="points">
+            <p class="lead rv" style="margin-top:var(--gap);">Un sistema integral de pasos a desnivel que atiende los principales puntos de conflicto vial de la ciudad, concentrado en los corredores más saturados.</p>
+            <ul class="points tight" style="margin-top:var(--gap);">
               <li class="rv"><b>Zona Oriente:</b> conexión con el Aeropuerto Internacional — Palestina y Quinta Real.</li>
               <li class="rv"><b>Zona Norte:</b> corredor Av. Tecnológico — salida hacia Ciudad Juárez (Los Arcos, Desarrollo, G. Prieto Luján).</li>
               <li class="rv"><b>Zona Suroeste:</b> salida hacia Cuauhtémoc — Silvestre Terrazas.</li>
               <li class="rv"><b>Periodo estimado:</b> 12 meses · concluir antes del cierre de la administración.</li>
             </ul>
+          </div>
+          <div class="map-frame rv-s">
+            <img src="assets/mapa-chihuahua-puentes.png" alt="Mapa de Chihuahua con la ubicación de los 6 pasos a desnivel">
+            <div class="map-pin" style="left:68.03%;top:40.16%;--d:0s;"></div>
+            <div class="map-pin" style="left:72.67%;top:38.86%;--d:.8s;"></div>
+            <div class="map-pin" style="left:12.12%;top:13.96%;--d:1.6s;"></div>
+            <div class="map-pin" style="left:6.84%;top:5.31%;--d:2.4s;"></div>
+            <div class="map-pin" style="left:9.33%;top:10.12%;--d:3.2s;"></div>
+            <div class="map-pin" style="left:26.69%;top:88.67%;--d:4s;"></div>
           </div>
         </div>
       </div>
