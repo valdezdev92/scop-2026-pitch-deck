@@ -141,7 +141,7 @@
   @media (prefers-reduced-motion:reduce){ .gallery-track{ animation:none; } }
 
   /* Imagen principal — se actualiza al seleccionar una foto del carrusel */
-  .gallery-hero{ position:relative; width:100%; aspect-ratio:20/9; border-radius:16px; overflow:hidden; border:1px solid var(--line); background:var(--bg-2); margin-bottom:clamp(.6rem,1.4vh,1rem); }
+  .gallery-hero{ position:relative; width:100%; aspect-ratio:16/9; border-radius:16px; overflow:hidden; border:1px solid var(--line); background:var(--bg-2); margin-bottom:clamp(.6rem,1.4vh,1rem); }
   .gallery-hero .gh-placeholder{ position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:.6rem; color:var(--ink-dim); transition:opacity .3s var(--ease); }
   .gallery-hero .gh-placeholder .gi-icon{ width:34px; height:34px; }
   .gallery-hero .gh-placeholder span.gh-text{ font-family:var(--f-mono); font-size:var(--t-mono); letter-spacing:.08em; text-transform:uppercase; }
@@ -1249,7 +1249,12 @@
       if (total) show(0);
 
       allItems.forEach((item, j) => {
-        item.addEventListener('click', () => show(j % total));
+        item.addEventListener('click', () => {
+          const realIdx = j % total;
+          show(realIdx);
+          const img = items[realIdx]?.querySelector('img');
+          if (img) openImgModal(img.src, img.alt);
+        });
       });
 
       heroImg.addEventListener('click', () => { if (hero.classList.contains('has-img')) openImgModal(heroImg.src, heroImg.alt); });
