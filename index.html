@@ -242,6 +242,23 @@
   @media (max-width:560px){ .brand-fix span.long{ display:none; } }
   @media (prefers-reduced-motion:reduce){ *,*::before,*::after{ animation-duration:.01ms!important; transition-duration:.25s!important; } }
 
+  /* ============================================================
+     MÓVIL — el contenido de cada slide puede exceder el alto de
+     una pantalla de teléfono, así que se habilita scroll vertical
+     dentro de la propia slide (la navegación horizontal por swipe
+     entre slides sigue intacta).
+     ============================================================ */
+  @media (max-width:760px), (max-height:500px) and (orientation:landscape){
+    .slide{ overflow-y:auto; overflow-x:hidden; justify-content:flex-start; -webkit-overflow-scrolling:touch; padding-top:calc(var(--pad) + 2.2rem); padding-bottom:calc(var(--pad) + 3.4rem); }
+    .slide::-webkit-scrollbar{ display:none; }
+    .wrap{ justify-content:flex-start; max-height:none; }
+    .shot{ height:min(38vh,320px); }
+    .hint{ display:none; }
+    #dots{ max-width:78vw; }
+    .nav-arrows button{ width:38px; height:38px; background:rgba(19,26,38,.85); backdrop-filter:blur(6px); }
+    .brand-fix,#counter{ background:rgba(8,11,17,.75); backdrop-filter:blur(6px); padding:.4rem .7rem; border-radius:999px; }
+  }
+
   /* Logos portada — esquina inferior derecha, juntos (tratamiento original) */
   .logos-container{ position:absolute; bottom:var(--pad); right:var(--pad); z-index:10; display:flex; align-items:flex-end; gap:clamp(1.5rem,3vw,3rem); opacity:0; transition:opacity 1.1s var(--ease) .5s; }
   .slide.active .logos-container{ opacity:1; }
@@ -1000,6 +1017,7 @@
       cur = i;
       deck.style.transition = instant ? 'none' : '';
       deck.style.transform = 'translateX(-' + (cur * 100) + 'vw)';
+      slides[cur].scrollTop = 0;
       requestAnimationFrame(() => slides[cur].classList.add('active'));
       setTimeout(() => { busy = false; }, instant ? 0 : 600);
       updateChrome();
