@@ -41,7 +41,11 @@
     background-image:linear-gradient(rgba(255,255,255,0.018) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.018) 1px,transparent 1px);
     background-size:clamp(40px,5vw,72px) clamp(40px,5vw,72px); mask-image:radial-gradient(ellipse 90% 90% at 50% 50%,#000 40%,transparent 100%); }
   .orb{ position:absolute; border-radius:50%; pointer-events:none; z-index:0; background:radial-gradient(circle,var(--accent-glow) 0%,transparent 70%); filter:blur(40px); opacity:0; transition:opacity 1.2s var(--ease); }
-  .slide.active .orb{ opacity:1; }
+  .slide.active .orb{ animation:orbBreathe 7s ease-in-out infinite; }
+  @keyframes orbBreathe{
+    0%,100%{ transform:scale(1) translate(0,0); opacity:.7; }
+    50%{ transform:scale(1.28) translate(4%,-5%); opacity:1; }
+  }
   .wrap{ position:relative; z-index:2; width:100%; max-width:1280px; margin:0 auto; max-height:100%; display:flex; flex-direction:column; justify-content:center; }
 
   .eyebrow{ display:inline-flex; align-items:center; gap:.6rem; font-family:var(--f-mono); font-size:var(--t-mono); font-weight:500; text-transform:uppercase; letter-spacing:0.28em; color:var(--accent); margin-bottom:var(--gap); }
@@ -138,6 +142,9 @@
   .shot.single .main{ flex:1; }
   .shot img{ width:100%; height:100%; object-fit:cover; transition:transform .8s var(--ease); }
   @media (hover:hover){ .obra:hover .shot .main img{ transform:scale(1.05); } }
+  /* Zoom lento "Ken Burns" en el render de cada paso — vida sutil sin glow */
+  .slide.active .shot.single .main img{ animation:kenBurns 22s ease-in-out infinite alternate; }
+  @keyframes kenBurns{ 0%{ transform:scale(1) translate(0,0); } 100%{ transform:scale(1.09) translate(-1.4%,1%); } }
 
   /* Tarjeta técnica flotante (inset) sobre el render — muestra el diseño completo sin recortes */
   .shot.has-inset{ position:relative; }
@@ -217,7 +224,9 @@
   /* Cierre — Gobierno del Estado, arriba a la derecha (más grande) */
   .gov-logo-right{ position:absolute; top:var(--pad); right:var(--pad); z-index:10; opacity:0; transform:translateY(-12px); transition:opacity 1s var(--ease) .3s,transform 1s var(--ease) .3s; }
   .slide.active .gov-logo-right{ opacity:1; transform:none; }
+  .gov-logo-right a{ display:block; cursor:pointer; transition:transform .25s var(--ease),filter .25s var(--ease); }
   .gov-logo-right img{ max-height:clamp(90px,13vh,180px); width:auto; object-fit:contain; }
+  @media (hover:hover){ .gov-logo-right a:hover{ transform:scale(1.05); filter:drop-shadow(0 0 14px var(--accent-glow)); } }
 
   @media (prefers-reduced-motion:reduce){ .logos-container,.gov-logo-right{ transition-duration:.25s!important; transform:none!important; } }
 
@@ -613,23 +622,6 @@
       </div>
     </section>
 
-    <!-- ============================ 15 · JUÁREZ — INVERSIÓN HISTÓRICA ============================ -->
-    <section class="slide" aria-label="Ciudad Juárez — Inversión histórica">
-      <div class="orb" style="width:42vw;height:42vw;top:-15%;right:-5%;"></div>
-      <div class="wrap" style="max-width:1180px;">
-        <div class="eyebrow rv">03 — Ciudad Juárez · Trayectoria</div>
-        <h2 class="rv">La frontera con mayor inversión.</h2>
-        <p class="lead rv" style="margin-top:var(--gap-s);">Más allá de los pasos a desnivel, Juárez concentra una inversión histórica del Gobierno del Estado.</p>
-        <div class="kpi-grid rv-s">
-          <div class="kpi"><div class="n">+1,754<span class="u">MDP</span></div><div class="l">Inversión global en la frontera (+$1,128 M SCOP)</div></div>
-          <div class="kpi"><div class="n">529<span class="u">MDP</span></div><div class="l">Sistema BRT II — transporte público modernizado</div></div>
-          <div class="kpi"><div class="n">+150<span class="u">MDP</span></div><div class="l">Rehabilitación de más de 30 calles</div></div>
-          <div class="kpi"><div class="n">72<span class="u">MDP</span></div><div class="l">Centro de Servicios Administrativos El Mezquital</div></div>
-        </div>
-        <p class="rv" style="margin-top:var(--gap);font-size:var(--t-small);color:var(--ink-dim);line-height:1.6;">También concluido: <b style="color:var(--ink-soft)">UCIN del Hospital de la Mujer</b> · Infraestructura de seguridad (Fiscalía y CERESO Estatal No. 3) · 5 parques rehabilitados (Reforma, San Ángel, Fidel Velázquez, Echacala, Fuentes del Valle).</p>
-      </div>
-    </section>
-
     <!-- ============================ 16 · JUÁREZ — OBRAS EN PROCESO Y CONSERVACIÓN ============================ -->
     <section class="slide" aria-label="Ciudad Juárez — Obras en proceso y conservación">
       <div class="wrap">
@@ -810,7 +802,7 @@
           <div class="c"><div class="k">Gobierno</div><div class="v">Estado de Chihuahua · 2026</div></div>
         </div>
       </div>
-      <div class="gov-logo-right"><img src="assets/Institucional Blanco vertical.png" alt="Gobierno del Estado de Chihuahua"></div>
+      <div class="gov-logo-right"><a href="#0" id="goHomeLink" aria-label="Volver al inicio de la presentación"><img src="assets/Institucional Blanco vertical.png" alt="Gobierno del Estado de Chihuahua"></a></div>
     </section>
 
   </div><!-- /deck -->
@@ -916,6 +908,9 @@
 
     document.getElementById('next').addEventListener('click', () => go(cur+1));
     document.getElementById('prev').addEventListener('click', () => go(cur-1));
+
+    const goHomeLink = document.getElementById('goHomeLink');
+    if (goHomeLink) goHomeLink.addEventListener('click', e => { e.preventDefault(); go(0); });
 
     let wheelLock = false;
     window.addEventListener('wheel', e => {
