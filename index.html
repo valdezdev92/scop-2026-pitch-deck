@@ -196,6 +196,32 @@
   @media (hover:hover){ .img-modal-close:hover{ background:var(--accent); color:#06251f; transform:scale(1.06); } }
   @media (prefers-reduced-motion:reduce){ .img-modal,.img-modal-content{ transition-duration:.15s!important; } }
 
+  /* ─── Modal de video ─── */
+  .img-modal-video-wrap{ display:none; position:relative; z-index:1; width:min(1100px,92vw); aspect-ratio:16/9; border-radius:14px; overflow:hidden; background:#000; box-shadow:0 40px 90px -20px rgba(0,0,0,0.7); transform:scale(0.94); transition:transform .35s cubic-bezier(0.16,1,0.3,1); }
+  .img-modal.open.is-video .img-modal-video-wrap{ display:block; transform:scale(1); }
+  .img-modal.open.is-video .img-modal-content{ display:none; }
+  #imgModalVideo{ width:100%; height:100%; border:none; display:block; }
+
+  /* ─── Slide 10 — galería de medios ─── */
+  .media-split{ grid-template-columns:2fr 3fr !important; gap:clamp(1.5rem,3vw,3rem); align-items:stretch; }
+  .media-split .media-info{ display:flex; flex-direction:column; justify-content:center; gap:.5rem; }
+  /* El wrap de esta slide estira para llenar la altura disponible */
+  .slide-media-full .wrap{ flex:1; max-height:none; display:flex; flex-direction:column; }
+  .slide-media-full .media-split{ flex:1; min-height:0; }
+  .slide-media-full .rv-s{ height:100%; display:flex; flex-direction:column; }
+  .media-grid{ display:grid; grid-template-columns:repeat(3,1fr); grid-template-rows:repeat(2,1fr); gap:clamp(.4rem,.6vw,.6rem); height:100%; }
+  .media-cell{ position:relative; border-radius:10px; overflow:hidden; border:1px solid var(--line); background:var(--bg-2); cursor:pointer; transition:border-color .25s var(--ease),box-shadow .25s var(--ease); }
+  .media-cell img{ width:100%; height:100%; object-fit:cover; display:block; transition:transform .45s var(--ease); }
+  .media-cell:hover{ border-color:rgba(0,229,255,.4); box-shadow:0 8px 24px -8px rgba(0,229,255,.18); }
+  .media-cell:hover img,.media-cell:hover .mc-thumb{ transform:scale(1.06); }
+  .mc-thumb{ width:100%; height:100%; display:flex; align-items:center; justify-content:center; background:var(--bg-2); transition:transform .45s var(--ease); }
+  .mc-thumb svg{ width:26px; height:26px; stroke:var(--ink-dim); fill:none; stroke-width:1.4; stroke-linecap:round; stroke-linejoin:round; opacity:.38; }
+  .mc-play{ position:absolute; inset:0; display:flex; align-items:center; justify-content:center; pointer-events:none; }
+  .mc-play-btn{ width:40px; height:40px; border-radius:50%; background:rgba(0,229,255,.15); border:1.5px solid rgba(0,229,255,.45); display:flex; align-items:center; justify-content:center; backdrop-filter:blur(4px); transition:background .25s var(--ease),transform .25s var(--ease); }
+  .media-cell:hover .mc-play-btn{ background:rgba(0,229,255,.3); transform:scale(1.12); }
+  .mc-play-btn svg{ width:14px; height:14px; fill:var(--accent); margin-left:2px; }
+  .mc-label{ position:absolute; bottom:0; left:0; right:0; padding:.28rem .45rem; font-size:10px; font-family:var(--f-mono); letter-spacing:.04em; color:rgba(255,255,255,.55); background:linear-gradient(transparent,rgba(0,0,0,.58)); pointer-events:none; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+
   .row-pills{ display:flex; gap:.5rem; flex-wrap:wrap; margin-bottom:var(--gap-s); }
   .obra-title{ font-size:var(--t-obra); font-weight:700; line-height:1.06; letter-spacing:-0.015em; }
   .obra-loc{ font-family:var(--f-mono); font-size:var(--t-mono); color:var(--ink-dim); letter-spacing:.08em; margin-top:.5rem; }
@@ -529,28 +555,60 @@
     </section>
 
     <!-- ============================ 10 · LABOR DE TERRAZAS ============================ -->
-    <section class="slide" aria-label="Prolongación Av. Teófilo Borunda — Labor de Terrazas">
+    <section class="slide slide-media-full" aria-label="Prolongación Av. Teófilo Borunda — Labor de Terrazas">
       <div class="orb" style="width:45vw;height:45vw;bottom:-25%;left:-10%;"></div>
       <div class="wrap">
-        <div class="split">
-          <div>
+        <div class="split media-split">
+          <!-- Columna izquierda: info -->
+          <div class="media-info">
             <div class="row-pills rv"><span class="pill lic"><span class="d"></span>Inicia esta semana</span></div>
-            <div class="eyebrow rv" style="margin-bottom:.6rem;">Chihuahua · Vialidad estratégica</div>
+            <div class="eyebrow rv" style="margin-bottom:.4rem;">Chihuahua · Vialidad estratégica</div>
             <h2 class="rv">Prolongación Av. Teófilo Borunda</h2>
             <div class="obra-loc rv">Acceso a Labor de Terrazas · sur-poniente</div>
-            <p class="quote rv" style="margin-top:var(--gap);">«No solo construimos nuevas vialidades, resolvemos problemas históricos de acceso.»</p>
+            <div style="height:1px;background:var(--line);margin:clamp(.8rem,1.8vh,1.2rem) 0;"></div>
+            <div class="panel rv-s" style="flex:1;">
+              <div class="ph"><h3>Alcance</h3><span class="amt">+$17 M</span></div>
+              <ul class="points tight" style="margin-top:0;">
+                <li><b>+2 km</b> de intervención · 4 frentes de trabajo</li>
+                <li>Nueva vialidad · pavimentación y rehabilitación</li>
+                <li>Drenaje pluvial · señalamiento completo</li>
+              </ul>
+              <div style="height:1px;background:var(--line);margin:.3rem 0;"></div>
+              <span class="sub">Colonias beneficiadas</span>
+              <p style="font-size:var(--t-small);color:var(--ink-soft);line-height:1.5;margin-top:.3rem;">Labor de Terrazas · Bosques de San Francisco · Romanzza · Altozano · Verona.</p>
+            </div>
           </div>
-          <div class="panel rv-s">
-            <div class="ph"><h3>Alcance</h3><span class="amt">+$17 M</span></div>
-            <ul class="points tight" style="margin-top:0;">
-              <li><b>+2 km</b> de intervención · 4 frentes de trabajo</li>
-              <li>Nueva vialidad · pavimentación y rehabilitación</li>
-              <li>Drenaje pluvial · señalamiento completo</li>
-            </ul>
-            <div style="height:1px;background:var(--line);margin:.3rem 0;"></div>
-            <span class="sub">Colonias beneficiadas</span>
-            <p style="font-size:var(--t-small);color:var(--ink-soft);line-height:1.5;">Labor de Terrazas · Bosques de San Francisco · Romanzza · Altozano · Verona.</p>
-            <p style="font-size:var(--t-small);color:var(--ink-dim);">Mejora la conectividad sur-poniente, ordena accesos y reduce tiempos de traslado.</p>
+          <!-- Columna derecha: galería 3×2 -->
+          <div class="rv-s">
+            <div class="media-grid">
+              <!-- celda 1: video -->
+              <div class="media-cell" data-media-type="video" data-media-src="" data-media-label="Avance de obra">
+                <div class="mc-thumb"><svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg></div>
+                <div class="mc-play"><div class="mc-play-btn"><svg viewBox="0 0 10 12"><polygon points="0,0 10,6 0,12"/></svg></div></div>
+                <div class="mc-label">Video — avance de obra</div>
+              </div>
+              <!-- celdas 2-6: fotos -->
+              <div class="media-cell" data-media-type="img" data-media-src="assets/tb-aerea-1.jpg" data-media-label="Vista aérea — apertura de vialidad">
+                <img src="assets/tb-aerea-1.jpg" alt="Vista aérea apertura de vialidad" loading="lazy">
+                <div class="mc-label">Vista aérea</div>
+              </div>
+              <div class="media-cell" data-media-type="img" data-media-src="assets/tb-colada-concreto.jpg" data-media-label="Colada de concreto hidráulico">
+                <img src="assets/tb-colada-concreto.jpg" alt="Colada de concreto" loading="lazy">
+                <div class="mc-label">Colada de concreto</div>
+              </div>
+              <div class="media-cell" data-media-type="img" data-media-src="assets/tb-aerea-2.jpg" data-media-label="Vista aérea — múltiples frentes">
+                <img src="assets/tb-aerea-2.jpg" alt="Vista aérea múltiples frentes" loading="lazy">
+                <div class="mc-label">Frentes de trabajo</div>
+              </div>
+              <div class="media-cell" data-media-type="img" data-media-src="assets/tb-excavacion.jpg" data-media-label="Excavación y cimentación">
+                <img src="assets/tb-excavacion.jpg" alt="Excavación y cimentación" loading="lazy">
+                <div class="mc-label">Excavación</div>
+              </div>
+              <div class="media-cell" data-media-type="img" data-media-src="assets/tb-drenaje.jpg" data-media-label="Drenaje pluvial — talud revestido">
+                <img src="assets/tb-drenaje.jpg" alt="Drenaje pluvial talud" loading="lazy">
+                <div class="mc-label">Drenaje pluvial</div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -963,9 +1021,13 @@
 
   <div class="img-modal" id="imgModal" aria-hidden="true">
     <div class="img-modal-backdrop" data-close></div>
-    <div class="img-modal-content">
+    <div class="img-modal-content" id="imgModalContent">
       <button class="img-modal-close" data-close aria-label="Cerrar"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
       <img id="imgModalImg" src="" alt="">
+    </div>
+    <div class="img-modal-video-wrap" id="imgModalVideoWrap">
+      <button class="img-modal-close" data-close aria-label="Cerrar"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+      <iframe id="imgModalVideo" src="" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen title="Video de obra"></iframe>
     </div>
   </div>
 
@@ -1013,21 +1075,31 @@
       document.getElementById('next').classList.toggle('disabled', cur === total-1);
     }
 
-    /* Modal — imagen técnica ampliada */
+    /* Modal — imagen técnica ampliada / video */
     const imgModal = document.getElementById('imgModal');
     const imgModalImg = document.getElementById('imgModalImg');
+    const imgModalVideo = document.getElementById('imgModalVideo');
     let modalOpen = false;
 
     function openImgModal(src, alt) {
+      imgModal.classList.remove('is-video');
       imgModalImg.src = src;
       imgModalImg.alt = alt || '';
       imgModal.classList.add('open');
       imgModal.setAttribute('aria-hidden', 'false');
       modalOpen = true;
     }
+    function openVideoModal(src) {
+      imgModal.classList.add('is-video');
+      imgModalVideo.src = src + (src.includes('?') ? '&' : '?') + 'autoplay=1';
+      imgModal.classList.add('open');
+      imgModal.setAttribute('aria-hidden', 'false');
+      modalOpen = true;
+    }
     function closeImgModal() {
-      imgModal.classList.remove('open');
+      imgModal.classList.remove('open', 'is-video');
       imgModal.setAttribute('aria-hidden', 'true');
+      imgModalVideo.src = '';
       modalOpen = false;
     }
     document.querySelectorAll('.tec-inset').forEach(el => {
@@ -1097,6 +1169,19 @@
     });
 
     imgModal.querySelectorAll('[data-close]').forEach(el => el.addEventListener('click', closeImgModal));
+
+    /* Galería de medios — slide 10 */
+    document.querySelectorAll('.media-cell').forEach(cell => {
+      cell.addEventListener('click', () => {
+        const src = cell.dataset.mediaSrc;
+        if (!src) return;
+        if (cell.dataset.mediaType === 'video') {
+          openVideoModal(src);
+        } else {
+          openImgModal(src, cell.dataset.mediaLabel || '');
+        }
+      });
+    });
 
     document.addEventListener('keydown', e => {
       if (modalOpen) {
