@@ -148,6 +148,8 @@
   .gallery-hero .gh-img{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; opacity:0; transition:opacity .45s var(--ease); cursor:zoom-in; }
   .gallery-hero.has-img .gh-img{ opacity:1; }
   .gallery-hero.has-img .gh-placeholder{ opacity:0; pointer-events:none; }
+  .gallery-hero .gh-caption{ position:absolute; left:0; right:0; bottom:0; z-index:2; padding:1.6rem 1.2rem 1rem; background:linear-gradient(0deg,rgba(5,7,11,0.88) 0%,rgba(5,7,11,0.45) 55%,transparent 100%); font-size:clamp(.92rem,1.7vw,1.2rem); font-weight:700; color:var(--ink); line-height:1.25; opacity:0; transition:opacity .35s var(--ease); pointer-events:none; }
+  .gallery-hero.has-img .gh-caption{ opacity:1; }
 
   /* Pills */
   .pill{ display:inline-flex; align-items:center; gap:.4rem; font-family:var(--f-mono); font-size:var(--t-mono); font-weight:500; text-transform:uppercase; letter-spacing:.1em; padding:.3em .7em; border-radius:999px; white-space:nowrap; }
@@ -670,6 +672,7 @@
               <span class="gh-text">Selecciona una foto</span>
             </div>
             <img class="gh-img" alt="">
+            <span class="gh-caption"></span>
           </div>
         </div>
         <div class="gallery rv-s" style="margin-top:var(--gap);--gspeed:26s;">
@@ -712,6 +715,7 @@
               <span class="gh-text">Selecciona una foto</span>
             </div>
             <img class="gh-img" alt="">
+            <span class="gh-caption"></span>
           </div>
         </div>
         <div class="gallery rv-s" style="margin-top:var(--gap);--gspeed:16s;">
@@ -748,6 +752,7 @@
               <span class="gh-text">Selecciona una foto</span>
             </div>
             <img class="gh-img" alt="">
+            <span class="gh-caption"></span>
           </div>
         </div>
         <div class="gallery rv-s" style="margin-top:var(--gap);--gspeed:24s;">
@@ -796,13 +801,14 @@
               <span class="gh-text">Selecciona una foto</span>
             </div>
             <img class="gh-img" alt="">
+            <span class="gh-caption"></span>
           </div>
         </div>
         <div class="gallery rv-s" style="margin-top:var(--gap);--gspeed:36s;">
           <div class="gallery-track">
-            <div class="gallery-item"><span class="gi-icon"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="8.5" cy="10.5" r="1.5"/><path d="M21 15l-5-5L5 19"/></svg></span><span class="gi-label">Parque<br>La Esperanza</span><span class="gi-tag">Foto pendiente</span></div>
+            <div class="gallery-item"><img src="assets/parque-la-esperanza.jpg" alt="Parque La Esperanza — canchas rehabilitadas"><span class="gi-caption">Parque<br>La Esperanza</span></div>
             <div class="gallery-item"><img src="assets/parque-la-alianza.jpg" alt="Parque La Alianza — cancha deportiva rehabilitada"><span class="gi-caption">Parque<br>La Alianza</span></div>
-            <div class="gallery-item"><span class="gi-icon"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="8.5" cy="10.5" r="1.5"/><path d="M21 15l-5-5L5 19"/></svg></span><span class="gi-label">Parque<br>Ponce de León</span><span class="gi-tag">Foto pendiente</span></div>
+            <div class="gallery-item"><img src="assets/parque-ponce-de-leon.jpg" alt="Parque Ponce de León — canchas rehabilitadas"><span class="gi-caption">Parque<br>Ponce de León</span></div>
             <div class="gallery-item"><span class="gi-icon"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="8.5" cy="10.5" r="1.5"/><path d="M21 15l-5-5L5 19"/></svg></span><span class="gi-label">Parque Banús<br>· Juárez</span><span class="gi-tag">Foto pendiente</span></div>
             <div class="gallery-item"><span class="gi-icon"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="8.5" cy="10.5" r="1.5"/><path d="M21 15l-5-5L5 19"/></svg></span><span class="gi-label">Las Arcadas<br>· Juárez</span><span class="gi-tag">Foto pendiente</span></div>
             <div class="gallery-item"><span class="gi-icon"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="8.5" cy="10.5" r="1.5"/><path d="M21 15l-5-5L5 19"/></svg></span><span class="gi-label">Moradas del<br>Porvenir · Juárez</span><span class="gi-tag">Foto pendiente</span></div>
@@ -810,9 +816,9 @@
             <div class="gallery-item"><span class="gi-icon"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="8.5" cy="10.5" r="1.5"/><path d="M21 15l-5-5L5 19"/></svg></span><span class="gi-label">Los Lirios<br>· Juárez</span><span class="gi-tag">Foto pendiente</span></div>
             <div class="gallery-item"><span class="gi-icon"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="8.5" cy="10.5" r="1.5"/><path d="M21 15l-5-5L5 19"/></svg></span><span class="gi-label">Pradera Dorada<br>· Juárez</span><span class="gi-tag">Foto pendiente</span></div>
             <div class="gallery-item"><span class="gi-icon"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="8.5" cy="10.5" r="1.5"/><path d="M21 15l-5-5L5 19"/></svg></span><span class="gi-label">San Pablo<br>· Juárez</span><span class="gi-tag">Foto pendiente</span></div>
-            <div class="gallery-item" aria-hidden="true"><span class="gi-icon"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="8.5" cy="10.5" r="1.5"/><path d="M21 15l-5-5L5 19"/></svg></span><span class="gi-label">Parque<br>La Esperanza</span><span class="gi-tag">Foto pendiente</span></div>
+            <div class="gallery-item" aria-hidden="true"><img src="assets/parque-la-esperanza.jpg" alt="Parque La Esperanza — canchas rehabilitadas"><span class="gi-caption">Parque<br>La Esperanza</span></div>
             <div class="gallery-item" aria-hidden="true"><img src="assets/parque-la-alianza.jpg" alt=""><span class="gi-caption">Parque<br>La Alianza</span></div>
-            <div class="gallery-item" aria-hidden="true"><span class="gi-icon"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="8.5" cy="10.5" r="1.5"/><path d="M21 15l-5-5L5 19"/></svg></span><span class="gi-label">Parque<br>Ponce de León</span><span class="gi-tag">Foto pendiente</span></div>
+            <div class="gallery-item" aria-hidden="true"><img src="assets/parque-ponce-de-leon.jpg" alt="Parque Ponce de León — canchas rehabilitadas"><span class="gi-caption">Parque<br>Ponce de León</span></div>
             <div class="gallery-item" aria-hidden="true"><span class="gi-icon"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="8.5" cy="10.5" r="1.5"/><path d="M21 15l-5-5L5 19"/></svg></span><span class="gi-label">Parque Banús<br>· Juárez</span><span class="gi-tag">Foto pendiente</span></div>
             <div class="gallery-item" aria-hidden="true"><span class="gi-icon"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="8.5" cy="10.5" r="1.5"/><path d="M21 15l-5-5L5 19"/></svg></span><span class="gi-label">Las Arcadas<br>· Juárez</span><span class="gi-tag">Foto pendiente</span></div>
             <div class="gallery-item" aria-hidden="true"><span class="gi-icon"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="8.5" cy="10.5" r="1.5"/><path d="M21 15l-5-5L5 19"/></svg></span><span class="gi-label">Moradas del<br>Porvenir · Juárez</span><span class="gi-tag">Foto pendiente</span></div>
@@ -1040,41 +1046,52 @@
       if (!hero) return;
       const heroImg = hero.querySelector('.gh-img');
       const heroText = hero.querySelector('.gh-text');
-      const items = [...gal.querySelectorAll('.gallery-item')].filter(it => !it.hasAttribute('aria-hidden'));
+      const heroCaption = hero.querySelector('.gh-caption');
+      const allItems = [...gal.querySelectorAll('.gallery-item')];
+      const items = allItems.filter(it => !it.hasAttribute('aria-hidden'));
+      const total = items.length;
       const slide = gal.closest('.slide');
       let idx = 0;
       let paused = false;
 
-      function show(item) {
+      function nameOf(item) {
+        const cap = item.querySelector('.gi-caption') || item.querySelector('.gi-label');
+        return cap ? cap.innerHTML : '';
+      }
+
+      function show(i) {
+        const item = items[i];
+        if (!item) return;
         const img = item.querySelector('img');
         if (img) {
           heroImg.src = img.src;
           heroImg.alt = img.alt;
           hero.classList.add('has-img');
+          if (heroCaption) heroCaption.innerHTML = nameOf(item);
         } else {
           hero.classList.remove('has-img');
           const label = item.querySelector('.gi-label');
           if (heroText) heroText.innerHTML = label ? label.innerHTML : 'Foto pendiente';
         }
-        items.forEach(it => it.classList.toggle('is-active', it === item));
-        idx = items.indexOf(item);
+        // resalta tanto el elemento original como su copia del loop infinito
+        allItems.forEach((it, j) => it.classList.toggle('is-active', total > 0 && j % total === i));
+        idx = i;
       }
 
-      if (items.length) show(items[0]);
+      if (total) show(0);
 
-      items.forEach(item => {
-        item.addEventListener('click', () => show(item));
+      allItems.forEach((item, j) => {
+        item.addEventListener('click', () => show(j % total));
       });
 
       heroImg.addEventListener('click', () => { if (hero.classList.contains('has-img')) openImgModal(heroImg.src, heroImg.alt); });
       hero.addEventListener('mouseenter', () => { paused = true; });
       hero.addEventListener('mouseleave', () => { paused = false; });
 
-      if (items.length > 1) {
+      if (total > 1) {
         setInterval(() => {
           if (paused || !slide || !slide.classList.contains('active')) return;
-          idx = (idx + 1) % items.length;
-          show(items[idx]);
+          show((idx + 1) % total);
         }, 3800);
       }
     });
