@@ -221,8 +221,8 @@
 
   @media (prefers-reduced-motion:reduce){ .logos-container,.gov-logo-right{ transition-duration:.25s!important; transform:none!important; } }
 
-  /* Mapa de Chihuahua — marcadores con onda titilante (sonar) sobre los puntos rojos */
-  .map-frame{ position:relative; width:100%; aspect-ratio:2276/1856; border-radius:16px; overflow:hidden; border:1px solid var(--line); box-shadow:0 30px 60px -20px rgba(0,0,0,0.5); }
+  /* Mapas con marcadores de onda titilante (sonar) sobre los puntos rojos */
+  .map-frame{ position:relative; width:100%; border-radius:16px; overflow:hidden; border:1px solid var(--line); box-shadow:0 30px 60px -20px rgba(0,0,0,0.5); }
   .map-frame img{ width:100%; height:100%; object-fit:cover; display:block; }
   .map-pin{ position:absolute; width:0; height:0; }
   .map-pin::before{
@@ -237,6 +237,12 @@
     0%{ transform:scale(0.4); opacity:1; }
     15%{ transform:scale(4.4); opacity:0; }
     15.01%,100%{ transform:scale(0.4); opacity:0; }
+  }
+  .map-pin.n3::before{ animation-name:mapPingSeq3; animation-duration:2.4s; }
+  @keyframes mapPingSeq3{
+    0%{ transform:scale(0.4); opacity:1; }
+    30%{ transform:scale(4.4); opacity:0; }
+    30.01%,100%{ transform:scale(0.4); opacity:0; }
   }
   @media (prefers-reduced-motion:reduce){ .map-pin::before,.map-pin::after{ animation:none; opacity:0; } }
   @media (max-width:900px){ .map-frame{ margin-top:var(--gap); } }
@@ -304,7 +310,7 @@
               <li class="rv"><b>Periodo estimado:</b> 12 meses · concluir antes del cierre de la administración.</li>
             </ul>
           </div>
-          <div class="map-frame rv-s">
+          <div class="map-frame rv-s" style="aspect-ratio:2276/1856;">
             <img src="assets/mapa-chihuahua-puentes.png" alt="Mapa de Chihuahua con la ubicación de los 6 pasos a desnivel">
             <div class="map-pin" style="left:68.03%;top:40.16%;--d:0s;"></div>
             <div class="map-pin" style="left:72.67%;top:38.86%;--d:.8s;"></div>
@@ -465,7 +471,7 @@
             <div class="main"><img src="assets/p6-render.png" alt="Paso Inferior Silvestre Terrazas — render"></div>
             <div class="tec-inset pos-bottom">
               <div class="cap">Diseño técnico</div>
-              <img src="assets/p6-tec.jpg" alt="Diseño técnico Silvestre Terrazas">
+              <img src="assets/p6-tec.png" alt="Diseño técnico Silvestre Terrazas">
             </div>
           </div>
           <div>
@@ -521,14 +527,18 @@
           <div>
             <div class="eyebrow rv">03 — Ciudad Juárez</div>
             <h2 class="rv">Tres pasos sobre Av. Las Torres.</h2>
-          </div>
-          <div>
-            <p class="lead rv">Movilidad urbana en la frontera: tres pasos inferiores que destraban el corredor Villarreal Torres, alineados al avance del Juárez Bus / BRT 4.</p>
-            <ul class="points">
+            <p class="lead rv" style="margin-top:var(--gap);">Movilidad urbana en la frontera: tres pasos inferiores que destraban el corredor Villarreal Torres, alineados al avance del Juárez Bus / BRT 4.</p>
+            <ul class="points tight" style="margin-top:var(--gap);">
               <li class="rv"><b>$420 millones</b> de inversión en los tres pasos a desnivel.</li>
               <li class="rv">Objetivo: mejorar fluidez, reducir tiempos e incrementar la seguridad vial.</li>
               <li class="rv">Atienden la industria maquiladora, el aeropuerto y los sectores de mayor crecimiento.</li>
             </ul>
+          </div>
+          <div class="map-frame rv-s" style="aspect-ratio:2752/1536;">
+            <img src="assets/mapajuarez.png" alt="Mapa de Ciudad Juárez con la ubicación de los 3 pasos a desnivel">
+            <div class="map-pin n3" style="left:48.20%;top:38.89%;--d:0s;"></div>
+            <div class="map-pin n3" style="left:48.49%;top:44.60%;--d:.8s;"></div>
+            <div class="map-pin n3" style="left:43.66%;top:92.02%;--d:1.6s;"></div>
           </div>
         </div>
       </div>
