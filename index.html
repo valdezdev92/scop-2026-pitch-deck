@@ -1035,8 +1035,8 @@
        va cambiando sola entre TODOS los elementos de esa galería; clic en una miniatura
        la selecciona de inmediato */
     document.querySelectorAll('.gallery').forEach(gal => {
-      const prev = gal.previousElementSibling;
-      const hero = prev && prev.classList.contains('gallery-hero') ? prev : null;
+      const wrap = gal.closest('.wrap');
+      const hero = wrap ? wrap.querySelector('.gallery-hero') : null;
       if (!hero) return;
       const heroImg = hero.querySelector('.gh-img');
       const heroText = hero.querySelector('.gh-text');
