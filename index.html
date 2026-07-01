@@ -582,8 +582,8 @@
           <div class="rv-s">
             <div class="media-grid">
               <!-- celda 1: video -->
-              <div class="media-cell" data-media-type="video" data-media-src="" data-media-label="Avance de obra">
-                <div class="mc-thumb"><svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg></div>
+              <div class="media-cell" data-media-type="video" data-media-src="assets/tb-video-obra.mp4" data-media-label="Avance de obra — drone">
+                <img src="assets/tb-video-thumb.jpg" alt="Video avance de obra" loading="lazy">
                 <div class="mc-play"><div class="mc-play-btn"><svg viewBox="0 0 10 12"><polygon points="0,0 10,6 0,12"/></svg></div></div>
                 <div class="mc-label">Video — avance de obra</div>
               </div>
@@ -1027,7 +1027,8 @@
     </div>
     <div class="img-modal-video-wrap" id="imgModalVideoWrap">
       <button class="img-modal-close" data-close aria-label="Cerrar"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
-      <iframe id="imgModalVideo" src="" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen title="Video de obra"></iframe>
+      <iframe id="imgModalVideoIframe" src="" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen title="Video de obra"></iframe>
+      <video id="imgModalVideoEl" src="" controls autoplay playsinline style="display:none;width:100%;height:100%;background:#000;"></video>
     </div>
   </div>
 
@@ -1078,7 +1079,8 @@
     /* Modal — imagen técnica ampliada / video */
     const imgModal = document.getElementById('imgModal');
     const imgModalImg = document.getElementById('imgModalImg');
-    const imgModalVideo = document.getElementById('imgModalVideo');
+    const imgModalVideoIframe = document.getElementById('imgModalVideoIframe');
+    const imgModalVideoEl = document.getElementById('imgModalVideoEl');
     let modalOpen = false;
 
     function openImgModal(src, alt) {
@@ -1091,7 +1093,16 @@
     }
     function openVideoModal(src) {
       imgModal.classList.add('is-video');
-      imgModalVideo.src = src + (src.includes('?') ? '&' : '?') + 'autoplay=1';
+      const isYoutube = src.includes('youtube.com') || src.includes('youtu.be');
+      if (isYoutube) {
+        imgModalVideoIframe.src = src + (src.includes('?') ? '&' : '?') + 'autoplay=1';
+        imgModalVideoIframe.style.display = 'block';
+        imgModalVideoEl.style.display = 'none';
+      } else {
+        imgModalVideoEl.src = src;
+        imgModalVideoEl.style.display = 'block';
+        imgModalVideoIframe.style.display = 'none';
+      }
       imgModal.classList.add('open');
       imgModal.setAttribute('aria-hidden', 'false');
       modalOpen = true;
@@ -1099,7 +1110,9 @@
     function closeImgModal() {
       imgModal.classList.remove('open', 'is-video');
       imgModal.setAttribute('aria-hidden', 'true');
-      imgModalVideo.src = '';
+      imgModalVideoIframe.src = '';
+      imgModalVideoEl.pause();
+      imgModalVideoEl.src = '';
       modalOpen = false;
     }
     document.querySelectorAll('.tec-inset').forEach(el => {
